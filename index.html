@@ -7,15 +7,22 @@
 <meta name="description" content="San Andreas called him Bigfoot. Leonida calls him the Skunk Ape. $BIGFOOT.">
 <meta property="og:title" content="The Skunk Ape ($BIGFOOT)">
 <meta property="og:description" content="San Andreas called him Bigfoot. Leonida calls him the Skunk Ape.">
-<meta property="og:image" content="images/bf-corrected-skyline.jpg">
+<meta property="og:image" content="https://vantaprojects99-eng.github.io/skunk-ape/images/bf-corrected-skyline.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Grotesk:wght@400;500;700&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="images/bf-corrected-skyline.jpg" as="image">
 <style>
+@font-face{font-family:Anton;font-weight:400;font-display:swap;src:url(fonts/anton-400.woff2) format("woff2")}
+@font-face{font-family:'Space Grotesk';font-weight:400;font-display:swap;src:url(fonts/space-grotesk-400.woff2) format("woff2")}
+@font-face{font-family:'Space Grotesk';font-weight:500;font-display:swap;src:url(fonts/space-grotesk-500.woff2) format("woff2")}
+@font-face{font-family:'Space Grotesk';font-weight:700;font-display:swap;src:url(fonts/space-grotesk-700.woff2) format("woff2")}
+@font-face{font-family:'Special Elite';font-weight:400;font-display:swap;src:url(fonts/special-elite-400.woff2) format("woff2")}
 body{margin:0;background:#FBE7D8}
 a{color:#A3367A}a:hover{color:#2C293B}
+@media (max-width: 860px){.nav-links{display:none !important}.hero-inner{padding-top:320px !important}}
+@media (max-width: 520px){.nav-buy{display:none !important}}
+html{scroll-behavior:smooth}*{box-sizing:border-box}img{max-width:100%}
 </style>
-<style>html{scroll-behavior:smooth}*{box-sizing:border-box}img{max-width:100%}</style>
 </head>
 <body>
 <div style="font-family: 'Space Grotesk', system-ui, sans-serif; color: #2C293B; background: #FBE7D8; min-height: 100vh">
@@ -25,7 +32,7 @@ a{color:#A3367A}a:hover{color:#2C293B}
 <svg aria-hidden="true" width="34" height="34" viewBox="0 0 40 40"><path d="M14 36c-5 0-7-4-6-9 1-6 3-12 8-14 6-2 10 3 10 9 0 8-5 14-12 14z" fill="#B9298B"></path><circle cx="9" cy="8" r="2.6" fill="#B9298B"></circle><circle cx="15" cy="5" r="2.8" fill="#B9298B"></circle><circle cx="21.5" cy="5.5" r="2.6" fill="#B9298B"></circle><circle cx="27" cy="9" r="2.3" fill="#B9298B"></circle><circle cx="30.5" cy="14" r="2" fill="#B9298B"></circle></svg>
 <span style="font-family: Anton, Impact, sans-serif; font-size: 24px; letter-spacing: 1px">THE SKUNK APE</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #FEFDFF; background: #A3367A; padding: 4px 8px; border-radius: 999px">$BIGFOOT</span>
 </a>
-<div style="display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 14px; font-weight: 700; letter-spacing: 1.5px">
+<div class="nav-links" style="display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 14px; font-weight: 700; letter-spacing: 1.5px">
 <a href="#ca" style="color: #503443; text-decoration: none">CA</a>
 <a href="#lore" style="color: #503443; text-decoration: none">LORE</a>
 <a href="#archive" style="color: #503443; text-decoration: none">SIGHTINGS</a>
@@ -34,26 +41,30 @@ a{color:#A3367A}a:hover{color:#2C293B}
 <a href="#memes" style="color: #503443; text-decoration: none">MEMES</a>
 <a href="#buy" style="color: #503443; text-decoration: none">HOW TO BUY</a>
 </div>
-<a href="#buy" style="background: linear-gradient(90deg, rgba(225,108,178,0.9), rgba(255,156,88,0.9)); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 6px 20px rgba(225,108,178,0.35); color: #2C293B; font-weight: 700; letter-spacing: 1px; padding: 12px 20px; border-radius: 999px; text-decoration: none">BUY $BIGFOOT</a>
+<a class="nav-buy" href="#buy" style="background: linear-gradient(90deg, rgba(225,108,178,0.9), rgba(255,156,88,0.9)); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 6px 20px rgba(225,108,178,0.35); color: #2C293B; font-weight: 700; letter-spacing: 1px; padding: 12px 18px; white-space: nowrap; border-radius: 999px; text-decoration: none">BUY $BIGFOOT</a>
 </nav>
 </header>
-<section id="top" style="position: relative; overflow: hidden; min-height: 760px; display: flex; align-items: flex-end; background: #BD8DBD">
-<img src="images/bf-corrected-skyline.jpg" alt="Bigfoot standing on a swamp bridge at sunset, the Vice City skyline glowing behind him" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%">
-<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(97,102,160,0.45) 0%, rgba(189,141,189,0.05) 35%, rgba(176,103,159,0.35) 70%, #FBE7D8 100%)"></div>
-<div style="position: relative; z-index: 2; width: 100%; max-width: 1240px; margin: 0 auto; padding: 120px 20px 64px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px">
-<p style="margin: 0; font-family: 'Special Elite', monospace; font-size: 15px; letter-spacing: 3px; color: #FEFDFF; background: rgba(44,41,59,0.35); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.35); padding: 8px 14px; border-radius: 999px">CASE FILE #LEO-0001 · GRASSRIVERS, LEONIDA · 3:12 AM</p>
-<h1 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(64px, 12vw, 176px); line-height: 0.9; letter-spacing: 2px; color: #FEFDFF; text-shadow: 0 6px 0 #664068, 0 0 40px rgba(225,108,178,0.6)">SKUNK APE</h1>
-<p style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(22px, 3.2vw, 40px); letter-spacing: 4px; color: #FEFDFF; text-shadow: 0 2px 12px rgba(44,41,59,0.6)">SAN ANDREAS CALLED HIM BIGFOOT. LEONIDA CALLS HIM THE SKUNK APE.</p>
-<div role="timer" aria-label="Countdown to GTA VI release" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px">
-<div style="background: rgba(44,41,59,0.32); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 10px 30px rgba(44,41,59,0.25); border-radius: 18px; padding: 12px 16px; min-width: 76px; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 40px; line-height: 1; color: #FEFDFF"><span id="cd-d">--</span></span><span style="font-size: 12px; letter-spacing: 2px; color: #FFC095">DAYS</span></div>
-<div style="background: rgba(44,41,59,0.32); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 10px 30px rgba(44,41,59,0.25); border-radius: 18px; padding: 12px 16px; min-width: 76px; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 40px; line-height: 1; color: #FEFDFF"><span id="cd-h">--</span></span><span style="font-size: 12px; letter-spacing: 2px; color: #FFC095">HRS</span></div>
-<div style="background: rgba(44,41,59,0.32); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 10px 30px rgba(44,41,59,0.25); border-radius: 18px; padding: 12px 16px; min-width: 76px; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 40px; line-height: 1; color: #FEFDFF"><span id="cd-m">--</span></span><span style="font-size: 12px; letter-spacing: 2px; color: #FFC095">MIN</span></div>
-<div style="background: rgba(44,41,59,0.32); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 10px 30px rgba(44,41,59,0.25); border-radius: 18px; padding: 12px 16px; min-width: 76px; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 40px; line-height: 1; color: #FEFDFF"><span id="cd-s">--</span></span><span style="font-size: 12px; letter-spacing: 2px; color: #FFC095">SEC</span></div>
+<section id="top" style="position: relative; overflow: hidden; min-height: 820px; display: flex; align-items: center; background: #BD8DBD">
+<img src="images/bf-corrected-skyline.jpg" alt="The Skunk Ape standing on a swamp bridge at sunset, the Vice City skyline glowing behind him" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 42% 30%">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(44,41,59,0) 0%, rgba(44,41,59,0) 45%, rgba(44,41,59,0.35) 100%), linear-gradient(180deg, rgba(0,0,0,0) 70%, #FBE7D8 100%)"></div>
+<div class="hero-inner" style="position: relative; z-index: 2; width: 100%; max-width: 1240px; margin: 0 auto; padding: 96px 20px 72px; display: flex; justify-content: flex-end; align-items: center">
+<div style="flex: 0 1 540px; min-width: 0; box-sizing: border-box; background: rgba(44,41,59,0.38); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 20px 60px rgba(44,41,59,0.35); border-radius: 28px; padding: clamp(24px, 4vw, 40px); display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; align-self: flex-start; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FEFDFF; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3); padding: 7px 12px; border-radius: 999px">CASE FILE #LEO-0001 · 3:12 AM</p>
+<h1 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(56px, 7vw, 92px); line-height: 0.95; letter-spacing: 1px; color: #FEFDFF; text-shadow: 0 4px 0 #664068">THE SKUNK APE</h1>
+<p style="margin: 0; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.45; font-weight: 500; color: #FEFDFF">San Andreas called him Bigfoot. <span style="color: #FFC095; font-weight: 700">Leonida calls him the Skunk Ape.</span></p>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div role="timer" aria-label="Countdown to GTA VI release" style="display: flex; gap: 8px">
+<div style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 12px; min-width: 64px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; color: #FEFDFF"><span id="cd-d">--</span></span><span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #FFC095">DAYS</span></div>
+<div style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 12px; min-width: 64px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; color: #FEFDFF"><span id="cd-h">--</span></span><span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #FFC095">HRS</span></div>
+<div style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 12px; min-width: 64px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; color: #FEFDFF"><span id="cd-m">--</span></span><span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #FFC095">MIN</span></div>
+<div style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 12px; min-width: 64px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; color: #FEFDFF"><span id="cd-s">--</span></span><span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #FFC095">SEC</span></div>
 </div>
-<p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 2px; color: #2C293B">UNTIL THE HUNT OPENS IN LEONIDA · NOV 19, 2026</p>
-<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 8px">
-<a href="#buy" style="background: linear-gradient(90deg, rgba(225,108,178,0.92), rgba(255,156,88,0.92)); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 8px 24px rgba(225,108,178,0.4); color: #2C293B; font-weight: 700; letter-spacing: 1.5px; padding: 16px 28px; border-radius: 999px; text-decoration: none">BUY $BIGFOOT</a>
-<a href="#lore" style="background: rgba(44,41,59,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #FEFDFF; font-weight: 700; letter-spacing: 1.5px; padding: 16px 28px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(255,255,255,0.5)">READ THE FILES</a>
+<p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 2px; color: #FBCEB9">UNTIL THE HUNT OPENS IN LEONIDA · NOV 19, 2026</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#buy" style="flex: 1 1 160px; text-align: center; background: linear-gradient(90deg, rgba(225,108,178,0.95), rgba(255,156,88,0.95)); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 8px 24px rgba(225,108,178,0.4); color: #2C293B; font-weight: 700; letter-spacing: 1.5px; padding: 16px 24px; border-radius: 999px; text-decoration: none">BUY $BIGFOOT</a>
+<a href="#lore" style="flex: 1 1 160px; text-align: center; background: rgba(255,255,255,0.14); color: #FEFDFF; font-weight: 700; letter-spacing: 1.5px; padding: 16px 24px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(255,255,255,0.5)">READ THE FILES</a>
+</div>
 </div>
 </div>
 </section>
