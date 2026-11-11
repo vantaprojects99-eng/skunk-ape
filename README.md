@@ -4,4 +4,4 @@ Demo landing page. Static site: `index.html` + `images/`. Hosted with GitHub Pag
 
 Placeholders to replace before launch: contract address, domain, DEX, Telegram link, chart link.
 
-X: https://x.com/BigfootLeonida
+X: https://x.com/Skunkapeonsol
