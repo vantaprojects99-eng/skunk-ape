@@ -2,6 +2,7 @@
 
 Demo landing page. Static site: `index.html` + `images/`. Hosted with GitHub Pages.
 
-Placeholders to replace before launch: contract address, domain, DEX, Telegram link, chart link.
+Placeholders to replace before launch: contract address, domain, DEX and chart link.
 
 X: https://x.com/Skunkapeonsol
+Telegram: https://t.me/SKUNKAPECOMMUNITY
