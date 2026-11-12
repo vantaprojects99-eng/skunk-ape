@@ -209,6 +209,67 @@ footer .fine{color:#8b76b5;font-size:12.5px;line-height:1.7;max-width:520px}
 /* ================= reveal on scroll ================= */
 .rv{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
+
+/* ================= PHONE ONLY (desktop untouched) ================= */
+@media (max-width:760px){
+  /* tighter vertical rhythm */
+  .sight,.gal,.buy{padding-top:56px;padding-bottom:40px}
+  .story{margin:36px auto}
+  .cabar{margin:24px auto}
+  .sec-head{margin-bottom:16px}
+  .sec-head h2,.sight h2{font-size:30px!important}
+  /* countdown: glow fades out instead of hard edges */
+  .count{padding:56px 16px 40px;margin-bottom:12px}
+  .count:before{background:radial-gradient(70% 55% at 50% 60%,rgba(255,62,165,.28),transparent 75%)}
+  .count h2{font-size:26px;margin:8px 0 20px}
+  .cell b{font-size:44px}
+  .cell span{font-size:10px;letter-spacing:2px}
+  .count .foot{font-size:15px;margin-top:18px;padding:0 8px}
+  /* link tiles: swipeable row */
+  .links-row{padding:0}
+  .strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 16px 14px;scroll-padding:16px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .strip::-webkit-scrollbar{display:none}
+  .strip .tile{flex:0 0 76%;aspect-ratio:4/3;scroll-snap-align:start;border-radius:24px}
+  .tile .over{padding:16px 18px}
+  .tile b{font-size:15px}
+  /* story: image on top, text underneath (nothing covers the Skunk Ape) */
+  .sframe{height:auto;display:flex;flex-direction:column;background:rgba(12,10,16,.82);backdrop-filter:blur(8px)}
+  .sframe img{position:relative;top:0;height:clamp(250px,72vw,330px);object-position:50% 62%;transform:scale(var(--iz,1.04))}
+  .sframe .shade{display:none}
+  .sframe img{-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
+  .story-text{position:relative;left:auto;top:auto;bottom:auto;max-width:none;padding:6px 22px 26px;
+    transform:translateY(calc((1 - var(--sop,0)) * 20px))}
+  .story-text h2{font-size:34px;margin:8px 0 12px}
+  .story-text p{font-size:15.5px}
+  /* timeline: compact */
+  .sight .intro{font-size:15.5px;margin-bottom:22px}
+  .chap{padding:22px 0}
+  .chap .yr{font-size:24px}
+  .chap h3{font-size:17px;margin-bottom:6px}
+  .chap p{font-size:15px}
+  /* evidence: two-up grid, big shots span the row */
+  .grid{grid-template-columns:repeat(2,1fr)!important;gap:10px}
+  .ph{aspect-ratio:1/1!important;border-radius:20px}
+  .ph.big{grid-column:span 2!important;grid-row:auto!important;aspect-ratio:16/10!important}
+  .ph .cap{padding:12px 14px;font-size:11px}
+  /* how to buy: slim rows */
+  .steps{gap:10px}
+  .step{display:grid;grid-template-columns:44px 1fr;column-gap:12px;align-items:start;padding:18px 18px;border-radius:22px}
+  .step .n{font-size:34px;line-height:1;grid-row:span 2}
+  .step h3{margin:2px 0 4px;font-size:16px}
+  .step p{font-size:14.5px}
+  .buy .cta .btn{flex:1 1 auto;text-align:center}
+  /* watch + footer */
+  .vcard{padding:12px 14px}
+  footer{padding:48px 16px 40px}
+  .fin{gap:22px}
+  .links a{padding:11px 16px;font-size:12px}
+  /* hero copy fits one screen */
+  .hero-info .date{font-size:24px;line-height:1.15;padding:0 8px}
+  .hero-info .sub{font-size:14px;margin:8px 0 18px}
+  .hero-info .btn{padding:14px 20px;font-size:13px}
+}
 @media (prefers-reduced-motion:reduce){
   .rv{opacity:1;transform:none;transition:none}
   .hero{height:auto}.hero-stick{position:relative}
