@@ -1,203 +1,321 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SKUNK APE ($SKUNK) — Leonida's Leaked Legend</title>
-<meta name="description" content="Deep in Leonida, a decades-old legend has resurfaced in the GTA 6 development leaks. $SKUNK.">
-<meta property="og:title" content="SKUNK APE ($SKUNK)">
-<meta property="og:description" content="The legend was leaked. The hunt begins.">
-<meta property="og:image" content="https://vantaprojects99-eng.github.io/skunk-ape/images/v2-hero-skunk-ape.jpg">
+<title>SKUNK APE — Leonida's Oldest Local</title>
+<meta name="description" content="Deep in Leonida's swamps, the legend is real. $SKUNK on Solana. The hunt is on.">
+<meta property="og:title" content="SKUNK APE — Leonida's Oldest Local">
+<meta property="og:description" content="Deep in Leonida's swamps, the legend is real. $SKUNK on Solana.">
+<meta property="og:image" content="assets/banner.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@Skunkapeonsol">
-<link rel="preload" href="fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="images/v2-hero-skunk-ape.jpg" as="image">
+<link rel="icon" href="assets/pfp.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Bungee&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:Anton;font-weight:400;font-display:swap;src:url(fonts/anton-400.woff2) format("woff2")}
-@font-face{font-family:'Space Grotesk';font-weight:400;font-display:swap;src:url(fonts/space-grotesk-400.woff2) format("woff2")}
-@font-face{font-family:'Space Grotesk';font-weight:500;font-display:swap;src:url(fonts/space-grotesk-500.woff2) format("woff2")}
-@font-face{font-family:'Space Grotesk';font-weight:700;font-display:swap;src:url(fonts/space-grotesk-700.woff2) format("woff2")}
-@font-face{font-family:'Special Elite';font-weight:400;font-display:swap;src:url(fonts/special-elite-400.woff2) format("woff2")}
-body{margin:0;background:#120821}
-a{color:#FF3FAE}a:hover{color:#FFF4FC}
-@media (max-width: 860px){.nav-links{display:none !important}.hero-inner{padding-top:390px !important}.hero-img{bottom:auto !important;height:470px !important;object-position:77% 60% !important}}
-@media (max-width: 520px){.nav-buy{display:none !important}}
-html{scroll-behavior:smooth;color-scheme:dark}*{box-sizing:border-box}img{max-width:100%}
+:root{
+  --pink:#ff4fa3; --hotpink:#ff6ec0; --orange:#ff9a3d; --sun:#ffd98a;
+  --purple:#3a2a4a; --deep:#15101c; --deeper:#0c0a10; --cyan:#7fe8ff;
+  --ink:#0a080d; --cream:#f7f2ec;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--deeper);color:var(--cream);font-family:'Outfit',sans-serif;overflow-x:hidden}
+a{color:inherit}
+h1,h2,h3{line-height:1.05}
+.bungee{font-family:'Bungee',cursive}
+section{position:relative}
+
+/* ---------- CA corner pill ---------- */
+#caPill{position:fixed;top:14px;right:14px;z-index:999;display:flex;align-items:center;gap:8px;
+  background:rgba(13,5,31,.85);border:1px solid var(--pink);border-radius:999px;padding:8px 14px;
+  font-size:12px;font-weight:600;letter-spacing:.5px;cursor:pointer;backdrop-filter:blur(6px);
+  box-shadow:0 0 18px rgba(255,62,165,.45);transition:transform .15s}
+#caPill:hover{transform:scale(1.05)}
+#caPill b{color:var(--hotpink)}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:90px 20px 120px;overflow:hidden;background:#0c0420}
+.herovid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+  filter:contrast(1.14) saturate(1.18) brightness(1.04)}
+.rideframe video{filter:contrast(1.12) saturate(1.15)}
+.heroshade{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(10,8,13,.72) 0%,rgba(10,8,13,.22) 40%,rgba(12,10,16,.55) 75%,#0c0a10 100%)}
+.fog{position:absolute;left:-20%;width:140%;height:120px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(190,140,255,.18),transparent 70%);
+  filter:blur(18px);animation:drift 16s ease-in-out infinite alternate}
+.fog.f1{bottom:16%}.fog.f2{bottom:6%;animation-duration:22s;animation-delay:-8s}
+@keyframes drift{from{transform:translateX(-6%)}to{transform:translateX(6%)}}
+.fly{position:absolute;width:4px;height:4px;border-radius:50%;background:#d9ffb0;
+  box-shadow:0 0 8px 2px rgba(190,255,130,.8);animation:flyMove 9s ease-in-out infinite alternate,flyBlink 2.3s ease-in-out infinite;opacity:.8}
+@keyframes flyMove{from{transform:translate(0,0)}to{transform:translate(40px,-60px)}}
+@keyframes flyBlink{0%,100%{opacity:.15}50%{opacity:.95}}
+.hero .kicker{font-family:'Bungee';letter-spacing:4px;color:var(--sun);font-size:clamp(13px,2vw,18px);
+  text-shadow:0 0 14px rgba(255,180,77,.7);position:relative;z-index:2}
+.gtitle{width:min(92vw,880px);height:auto;position:relative;z-index:2;display:block;margin:12px auto 10px;
+  filter:drop-shadow(0 10px 30px rgba(0,0,0,.7))}
+.hero .sub{font-size:clamp(15px,2.4vw,21px);font-weight:600;color:#ffd7ef;letter-spacing:1px;position:relative;z-index:2}
+.hero .sub b{color:var(--cyan);text-shadow:0 0 12px rgba(83,233,255,.8)}
+.cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;justify-content:center;position:relative;z-index:2}
+.btn{font-family:'Bungee';font-size:15px;padding:15px 26px;border-radius:12px;text-decoration:none;
+  letter-spacing:1px;transition:transform .15s,box-shadow .15s}
+.btn.pink{background:linear-gradient(135deg,var(--pink),#ff7a3d);color:#fff;
+  box-shadow:0 0 24px rgba(255,62,165,.55)}
+.btn.ghost{border:2px solid var(--cyan);color:var(--cyan);box-shadow:0 0 18px rgba(83,233,255,.3) inset}
+.btn:hover{transform:translateY(-3px) scale(1.03)}
+.scrolldown{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:24px;
+  animation:bob 1.6s ease-in-out infinite;z-index:2}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+/* ---------- MARQUEE ---------- */
+.marquee{background:linear-gradient(90deg,var(--pink),var(--orange),var(--pink));padding:13px 0;overflow:hidden;
+  border-top:2px solid rgba(255,255,255,.25);border-bottom:2px solid rgba(255,255,255,.25)}
+.marquee .track{display:flex;width:max-content;animation:scrollX 26s linear infinite;
+  font-family:'Bungee';font-size:14px;letter-spacing:2px;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+.marquee span{padding:0 18px;white-space:nowrap}
+@keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- RIDE ---------- */
+.ride{padding:90px 20px 70px;background:
+  radial-gradient(1200px 500px at 50% -10%,rgba(123,47,191,.35),transparent),var(--deeper);text-align:center}
+.ride .tag{color:var(--orange);font-family:'Bungee';letter-spacing:3px;font-size:13px}
+.ride h2{font-family:'Bungee';font-size:clamp(30px,6vw,60px);margin:10px 0 8px;color:#fff;
+  text-shadow:0 0 20px rgba(255,62,165,.6)}
+.ride p.lead{color:#d9c6ff;max-width:640px;margin:0 auto 34px;font-size:17px}
+.rideframe{position:relative;max-width:1060px;margin:0 auto;border-radius:22px;overflow:hidden;
+  border:2px solid rgba(255,94,196,.6);box-shadow:0 0 60px rgba(255,62,165,.35),0 30px 80px rgba(0,0,0,.6)}
+.rideframe video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+
+/* ---------- SIGHTINGS ---------- */
+.sight{padding:90px 20px;background:linear-gradient(180deg,var(--deeper),#171019 50%,var(--deeper))}
+.sight h2{font-family:'Bungee';text-align:center;font-size:clamp(28px,5vw,52px);
+  color:var(--sun);text-shadow:0 0 22px rgba(255,180,77,.5);margin-bottom:8px}
+.sight .lead{text-align:center;color:#d9c6ff;max-width:680px;margin:0 auto 50px;font-size:17px}
+.timeline{max-width:860px;margin:0 auto;position:relative;padding-left:34px}
+.timeline:before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:3px;
+  background:linear-gradient(180deg,var(--pink),var(--purple));border-radius:3px;
+  box-shadow:0 0 14px rgba(255,62,165,.6)}
+.ev{position:relative;margin-bottom:34px;background:rgba(255,255,255,.045);border:1px solid rgba(255,94,196,.25);
+  border-radius:16px;padding:20px 22px;transition:transform .2s,border-color .2s}
+.ev:hover{transform:translateX(6px);border-color:var(--hotpink)}
+.ev:before{content:"";position:absolute;left:-31px;top:24px;width:13px;height:13px;border-radius:50%;
+  background:var(--hotpink);box-shadow:0 0 12px var(--hotpink)}
+.ev .yr{font-family:'Bungee';color:var(--cyan);font-size:14px;letter-spacing:2px}
+.ev h3{font-size:20px;margin:6px 0 6px;color:#fff}
+.ev p{color:#cfc0ea;font-size:15px;line-height:1.55}
+.ev.hot{border-color:var(--orange);background:rgba(255,176,77,.07)}
+.ev.hot:before{background:var(--orange);box-shadow:0 0 14px var(--orange)}
+
+/* ---------- COUNTDOWN ---------- */
+.count{padding:80px 20px;text-align:center;background:
+  radial-gradient(900px 400px at 50% 120%,rgba(255,62,165,.25),transparent),var(--ink)}
+.count .tag{font-family:'Bungee';color:var(--hotpink);letter-spacing:3px;font-size:13px}
+.count h2{font-family:'Bungee';font-size:clamp(26px,5vw,48px);margin:10px 0 30px}
+.clock{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cell{background:rgba(255,255,255,.05);border:1px solid rgba(83,233,255,.4);border-radius:16px;
+  padding:18px 10px;min-width:92px;box-shadow:0 0 24px rgba(83,233,255,.15)}
+.cell b{display:block;font-family:'Bungee';font-size:clamp(28px,5vw,44px);color:var(--cyan);
+  text-shadow:0 0 16px rgba(83,233,255,.7)}
+.cell span{font-size:12px;letter-spacing:2px;color:#9fd9ff;text-transform:uppercase}
+.count .foot{margin-top:24px;color:#d9c6ff;font-size:16px}
+
+/* ---------- GALLERY ---------- */
+.gal{padding:90px 20px;background:var(--deeper)}
+.gal h2{font-family:'Bungee';text-align:center;font-size:clamp(28px,5vw,52px);color:#fff;
+  text-shadow:0 0 22px rgba(255,62,165,.5);margin-bottom:46px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:26px;max-width:1080px;margin:0 auto}
+.card{background:rgba(255,255,255,.045);border:1px solid rgba(255,94,196,.3);border-radius:20px;
+  overflow:hidden;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-8px) rotate(-.6deg);box-shadow:0 20px 50px rgba(255,62,165,.3)}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.card.wide img{aspect-ratio:16/9}
+.card .cap{padding:16px 18px}
+.card .cap b{font-family:'Bungee';font-size:15px;color:var(--sun);display:block;margin-bottom:4px}
+.card .cap span{color:#cfc0ea;font-size:14px}
+
+/* ---------- BUY ---------- */
+.buy{padding:90px 20px;background:linear-gradient(180deg,var(--deeper),#1a1016)}
+.buy h2{font-family:'Bungee';text-align:center;font-size:clamp(28px,5vw,52px);color:var(--sun);
+  text-shadow:0 0 22px rgba(255,180,77,.5);margin-bottom:50px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;max-width:980px;margin:0 auto 54px}
+.step{background:rgba(255,255,255,.05);border:1px solid rgba(123,47,191,.6);border-radius:18px;padding:26px 22px;text-align:center}
+.step .n{font-family:'Titan One';font-size:40px;color:var(--hotpink);text-shadow:0 0 18px rgba(255,62,165,.7)}
+.step h3{font-family:'Bungee';font-size:17px;margin:12px 0 8px;color:#fff}
+.step p{color:#cfc0ea;font-size:14.5px;line-height:1.5}
+.cabox{max-width:760px;margin:0 auto;text-align:center;background:rgba(13,5,31,.7);
+  border:2px solid var(--pink);border-radius:20px;padding:30px 22px;box-shadow:0 0 44px rgba(255,62,165,.3)}
+.cabox .lbl{font-family:'Bungee';font-size:13px;letter-spacing:3px;color:var(--hotpink);margin-bottom:12px}
+.cabox code{display:block;font-size:clamp(11px,1.9vw,15px);color:var(--cyan);word-break:break-all;
+  background:rgba(0,0,0,.4);border-radius:10px;padding:14px;margin-bottom:16px}
+.cabox button{font-family:'Bungee';font-size:14px;background:linear-gradient(135deg,var(--pink),#ff7a3d);
+  color:#fff;border:none;border-radius:10px;padding:13px 30px;cursor:pointer;letter-spacing:1px;
+  box-shadow:0 0 20px rgba(255,62,165,.5)}
+.cabox button:hover{transform:scale(1.04)}
+.cabox .note{margin-top:14px;font-size:13px;color:#b9a6da}
+
+/* ---------- FOOTER ---------- */
+footer{padding:70px 20px 50px;text-align:center;background:var(--ink)}
+footer h2{font-family:'Bungee';font-size:clamp(24px,4.5vw,40px);margin-bottom:26px;color:#fff}
+.links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:38px}
+.links a{font-family:'Bungee';font-size:14px;text-decoration:none;padding:13px 24px;border-radius:12px;
+  border:2px solid var(--purple);color:#e3d2ff;transition:all .15s}
+.links a:hover{border-color:var(--hotpink);color:#fff;box-shadow:0 0 18px rgba(255,62,165,.5);transform:translateY(-3px)}
+footer .fine{color:#8b76b5;font-size:12.5px;max-width:560px;margin:0 auto;line-height:1.6}
 </style>
 </head>
 <body>
-<div style="font-family: 'Space Grotesk', system-ui, sans-serif; color: #FFF4FC; background: #120821; min-height: 100vh">
-<header style="position: sticky; top: 0; z-index: 5; background: rgba(16,7,34,0.78); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); border-bottom: 1px solid rgba(255,255,255,0.18)">
-<nav aria-label="Main" style="max-width: 1240px; margin: 0 auto; padding: 14px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #FFF4FC">
-<svg aria-hidden="true" width="34" height="34" viewBox="0 0 40 40"><path d="M14 36c-5 0-7-4-6-9 1-6 3-12 8-14 6-2 10 3 10 9 0 8-5 14-12 14z" fill="#FF3FAE"></path><circle cx="9" cy="8" r="2.6" fill="#FF3FAE"></circle><circle cx="15" cy="5" r="2.8" fill="#FF3FAE"></circle><circle cx="21.5" cy="5.5" r="2.6" fill="#FF3FAE"></circle><circle cx="27" cy="9" r="2.3" fill="#FF3FAE"></circle><circle cx="30.5" cy="14" r="2" fill="#FF3FAE"></circle></svg>
-<span style="font-family: Anton, Impact, sans-serif; font-size: 24px; letter-spacing: 1px">SKUNK APE</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #FEFDFF; background: #FF3FAE; padding: 4px 8px; border-radius: 999px">$SKUNK</span>
-</a>
-<div class="nav-links" style="display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 14px; font-weight: 700; letter-spacing: 1.5px">
-<a href="#ca" style="color: #EAD8F0; text-decoration: none">CA</a>
-<a href="#lore" style="color: #EAD8F0; text-decoration: none">LORE</a>
-<a href="#theory" style="color: #EAD8F0; text-decoration: none">THE LEAK</a>
-<a href="#videos" style="color: #EAD8F0; text-decoration: none">VIDEOS</a>
-<a href="#buy" style="color: #EAD8F0; text-decoration: none">HOW TO BUY</a>
-</div>
-<div style="display: flex; align-items: center; gap: 10px"><a target="_blank" rel="noopener" href="https://x.com/Skunkapeonsol" aria-label="The Skunk Ape on X" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.30); box-shadow: 0 4px 14px rgba(255,41,160,0.24)"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#FFF4FC"></path></svg></a>
-<a class="nav-buy" target="_blank" rel="noopener" href="https://dexscreener.com/solana/AusWEfi1py2oxThRWyGh86QcUyNH9jButcqb6vSzbqaq" style="background: linear-gradient(90deg, rgba(225,108,178,0.9), rgba(255,156,88,0.9)); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 6px 20px rgba(225,108,178,0.35); color: #FFF4FC; font-weight: 700; letter-spacing: 1px; padding: 12px 18px; white-space: nowrap; border-radius: 999px; text-decoration: none">BUY $SKUNK</a></div>
-</nav>
-</header>
-<section id="top" style="position: relative; overflow: hidden; min-height: clamp(760px, 52vw, 1100px); display: flex; align-items: center; background: #3A2440">
-<img class="hero-img" src="images/v2-hero-skunk-ape.jpg" alt="The masked Skunk Ape overlooking neon Leonida at sunset" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%">
-<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(44,41,59,0.35) 0%, rgba(44,41,59,0) 55%), linear-gradient(180deg, rgba(0,0,0,0) 72%, #120821 100%)"></div>
-<div class="hero-inner" style="position: relative; z-index: 2; width: 100%; max-width: 1240px; margin: 0 auto; padding: 96px 20px 72px; display: flex; justify-content: flex-start; align-items: center">
-<div style="flex: 0 1 540px; min-width: 0; box-sizing: border-box; background: rgba(44,41,59,0.38); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 20px 60px rgba(44,41,59,0.35); border-radius: 28px; padding: clamp(24px, 4vw, 40px); display: flex; flex-direction: column; gap: 18px">
-<p style="margin: 0; align-self: flex-start; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FEFDFF; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3); padding: 7px 12px; border-radius: 999px">CASE FILE #LEO-0001 · 3:12 AM</p>
-<h1 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(56px, 7vw, 92px); line-height: 0.95; letter-spacing: 1px; color: #FEFDFF; text-shadow: 0 4px 0 #A350CF">SKUNK APE</h1>
-<p style="margin: 0; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.45; font-weight: 500; color: #FEFDFF">Deep in the swamps of Leonida, something has been hiding for decades. <span style="color: #FFB05C; font-weight: 700">The legend was leaked. The hunt begins. $SKUNK — FRONT-RUNNING GTA 6.</span></p>
-<div style="display: flex; flex-direction: column; gap: 8px">
-<div role="timer" aria-label="Countdown to GTA VI release" style="display: flex; gap: 8px">
-<div style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 12px; min-width: 64px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; color: #FEFDFF"><span id="cd-d">--</span></span><span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #FFB05C">DAYS</span></div>
-<div style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 12px; min-width: 64px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; color: #FEFDFF"><span id="cd-h">--</span></span><span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #FFB05C">HRS</span></div>
-<div style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 12px; min-width: 64px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; color: #FEFDFF"><span id="cd-m">--</span></span><span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #FFB05C">MIN</span></div>
-<div style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 12px; min-width: 64px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center"><span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; color: #FEFDFF"><span id="cd-s">--</span></span><span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #FFB05C">SEC</span></div>
-</div>
-<p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 2px; color: #FFD0B0">UNTIL THE HUNT OPENS IN LEONIDA · NOV 19, 2026</p>
-</div>
-<div style="display: flex; flex-wrap: wrap; gap: 12px">
-<a target="_blank" rel="noopener" href="https://dexscreener.com/solana/AusWEfi1py2oxThRWyGh86QcUyNH9jButcqb6vSzbqaq" style="flex: 1 1 160px; text-align: center; background: linear-gradient(90deg, rgba(225,108,178,0.95), rgba(255,156,88,0.95)); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 8px 24px rgba(225,108,178,0.4); color: #FFF4FC; font-weight: 700; letter-spacing: 1.5px; padding: 16px 24px; border-radius: 999px; text-decoration: none">BUY $SKUNK</a>
-<a href="#lore" style="flex: 1 1 160px; text-align: center; background: rgba(255,255,255,0.14); color: #FEFDFF; font-weight: 700; letter-spacing: 1.5px; padding: 16px 24px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(255,255,255,0.22)">READ THE FILES</a>
-</div>
-</div>
-</div>
+
+<div id="caPill" title="copy CA"><b>CA:</b><span id="caPillText">Betz…Epump</span> 📋</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <video class="herovid" autoplay loop muted playsinline poster="assets/banner.jpg">
+    <source src="assets/swampride.mp4" type="video/mp4">
+  </video>
+  <div class="heroshade"></div>
+  <div class="fog f1"></div><div class="fog f2"></div>
+  <div class="fly" style="left:12%;top:58%"></div>
+  <div class="fly" style="left:22%;top:70%;animation-delay:-3s"></div>
+  <div class="fly" style="left:78%;top:62%;animation-delay:-5s"></div>
+  <div class="fly" style="left:86%;top:74%;animation-delay:-1.5s"></div>
+  <div class="fly" style="left:55%;top:80%;animation-delay:-7s"></div>
+  <div class="kicker">★ WELCOME TO THE SWAMP ★</div>
+  <svg class="gtitle" viewBox="0 0 900 150" role="img" aria-label="SKUNK APE">
+    <defs>
+      <linearGradient id="gtaGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7b4dff"/>
+        <stop offset="28%" stop-color="#c44dff"/>
+        <stop offset="55%" stop-color="#ff4fa3"/>
+        <stop offset="82%" stop-color="#ff9a3d"/>
+        <stop offset="100%" stop-color="#ffd98a"/>
+      </linearGradient>
+    </defs>
+    <text x="50%" y="78%" text-anchor="middle" font-family="Bungee" font-size="118"
+      textLength="850" lengthAdjust="spacingAndGlyphs"
+      fill="url(#gtaGrad)" stroke="#ffffff" stroke-width="9" paint-order="stroke"
+      stroke-linejoin="round">SKUNK APE</text>
+  </svg>
+  <div class="sub">Leonida's oldest local · <b>$SKUNK</b> on Solana</div>
+  <div class="cta">
+    <a class="btn pink" href="#buy">BUY $SKUNK</a>
+    <a class="btn ghost" href="#sightings">THE SIGHTINGS</a>
+  </div>
+  <div class="scrolldown">⌄</div>
 </section>
-<div style="background: radial-gradient(circle at 8% 6%, rgba(225,108,178,0.55) 0, rgba(225,108,178,0) 28%), radial-gradient(circle at 92% 14%, rgba(255,156,88,0.55) 0, rgba(255,156,88,0) 26%), radial-gradient(circle at 85% 58%, rgba(189,141,189,0.6) 0, rgba(189,141,189,0) 30%), radial-gradient(circle at 10% 72%, rgba(152,186,198,0.6) 0, rgba(152,186,198,0) 28%), radial-gradient(circle at 55% 96%, rgba(225,108,178,0.45) 0, rgba(225,108,178,0) 30%), linear-gradient(180deg, #120821 0%, #25103E 100%)">
-<section id="ca" style="padding: 56px 20px 64px">
-<div style="max-width: 860px; margin: 0 auto; background: rgba(34,16,61,0.74); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 10px 36px rgba(255,41,160,0.22); border-radius: 22px; padding: 32px; display: flex; flex-direction: column; gap: 16px">
-<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 34px; letter-spacing: 2px; color: #FFF4FC">CONTRACT ADDRESS</h2>
-<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch">
-<code id="ca-text" style="flex: 1 1 420px; min-width: 0; overflow-wrap: anywhere; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.28); border-radius: 14px; padding: 16px; font-size: 16px; color: #FF3FAE">BetzJU2X9UEgG2qdo8UKbJ6q1iiFGs23axh8vRqEpump</code>
-<button type="button" id="copy-btn" style="background: linear-gradient(90deg, rgba(225,108,178,0.92), rgba(255,156,88,0.92)); color: #FFF4FC; border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 0 26px; min-height: 52px; font-family: inherit; font-weight: 700; letter-spacing: 1.5px; font-size: 15px; cursor: pointer; box-shadow: 0 6px 20px rgba(225,108,178,0.35)">COPY</button>
-</div>
-<p style="margin: 0; color: #A350CF; font-size: 15px">This page is the only source of the real CA. Prints in the mud can be faked. This can't.</p>
-</div>
+
+<!-- MARQUEE -->
+<div class="marquee"><div class="track" id="mq">
+  <span>★ THE HUNT IS ON</span><span>★ $SKUNK</span><span>★ HE SMELLS LIKE MONEY</span><span>★ DEEP IN THE GLADES</span><span>★ NOV 19 · LEONIDA OPENS</span><span>★ 50 YEARS OF SIGHTINGS</span><span>★ MYTH NO MORE</span>
+</div></div>
+
+<!-- RIDE -->
+<section class="ride" id="ride">
+  <div class="tag">THE SWAMP RUN · THE CATALYST</div>
+  <h2>LEONIDA OPENS IN</h2>
+  <p class="lead">Fifty years of blurry photos. On November 19 the whole world enters his swamp.</p>
+  <div class="clock">
+    <div class="cell"><b id="dd">–</b><span>days</span></div>
+    <div class="cell"><b id="hh">–</b><span>hours</span></div>
+    <div class="cell"><b id="mm">–</b><span>mins</span></div>
+    <div class="cell"><b id="ss">–</b><span>secs</span></div>
+  </div>
+  <p class="lead" style="margin-top:26px;margin-bottom:0">When they get there… he'll already be home. 🦍</p>
 </section>
-<section id="lore" style="padding: 32px 20px 96px; scroll-margin-top: 56px">
-<div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
-<div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
-<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'Special Elite', monospace; color: #FF3FAE; letter-spacing: 3px; font-size: 14px">LEONIDA CASE FILE · DECADES UNEXPLAINED</p>
-<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(44px, 6vw, 80px); line-height: 1; letter-spacing: 1px; color: #FFF4FC">LEONIDA'S HIDDEN LEGEND</h2>
-<blockquote style="margin: 0; background: linear-gradient(130deg, rgba(82,38,151,0.78), rgba(220,45,146,0.72)); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 10px 36px rgba(255,41,160,0.30); border-radius: 22px; padding: 22px 26px; font-family: Anton, Impact, sans-serif; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.25; letter-spacing: 0.5px; color: #FEFDFF">Locals call it the Skunk Ape. A creature so mysterious that most believe it is nothing more than a legend.</blockquote>
-<p style="margin: 0; color: #EAD8F0; font-size: 19px; line-height: 1.6">But when GTA 6 development files leaked, the legend resurfaced—hidden in the shadows, buried in the files, waiting to be discovered.</p>
-<p style="margin: 0; color: #EAD8F0; font-size: 19px; line-height: 1.6">As the world prepares to enter Vice City, we're hunting one of Leonida's biggest mysteries. $SKUNK is front-running GTA 6.</p>
-</div>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-<article style="background: rgba(34,16,61,0.74); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 10px 36px rgba(255,41,160,0.22); border-radius: 22px; padding: 14px 14px 28px; display: flex; flex-direction: column; gap: 12px"><img src="images/v2-lore-san-andreas.jpg" alt="The Skunk Ape hidden deep in a foggy Leonida forest" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px"><div style="padding: 0 14px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-family: 'Special Elite', monospace; color: #FF3FAE; font-size: 14px; letter-spacing: 2px">FILE 01 · DECADES OF SIGHTINGS</p><h3 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 30px; letter-spacing: 1px; color: #FFF4FC">THE MYTH</h3><p style="margin: 0; color: #EAD8F0; line-height: 1.6; font-size: 16px">For decades, locals have whispered about something moving through Leonida's deepest swamps. Most dismissed it as folklore. The stories never stopped.</p></div></article>
-<article style="background: rgba(34,16,61,0.74); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 10px 36px rgba(255,41,160,0.22); border-radius: 22px; padding: 14px 14px 28px; display: flex; flex-direction: column; gap: 12px"><img src="images/v2-lore-raton-canyon.jpg" alt="The Skunk Ape racing across remote Leonida terrain" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px"><div style="padding: 0 14px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-family: 'Special Elite', monospace; color: #FF3FAE; font-size: 14px; letter-spacing: 2px">FILE 02 · GTA 6 DEVELOPMENT LEAK</p><h3 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 30px; letter-spacing: 1px; color: #FFF4FC">THE LEAK</h3><p style="margin: 0; color: #EAD8F0; line-height: 1.6; font-size: 16px">Then the GTA 6 development files leaked. Buried among the world events was a name Leonida already knew: Skunk Ape sighting. The legend had entered the game.</p></div></article>
-<article style="background: linear-gradient(130deg, rgba(82,38,151,0.78), rgba(220,45,146,0.72)); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 10px 36px rgba(255,41,160,0.30); border-radius: 22px; padding: 14px 14px 28px; display: flex; flex-direction: column; gap: 12px"><img src="images/v2-lore-leonida-arrival.jpg" alt="The masked Skunk Ape arriving in Leonida at sunrise" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px"><div style="padding: 0 14px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-family: 'Special Elite', monospace; color: #FFB05C; font-size: 14px; letter-spacing: 2px">FILE 03 · VICE CITY AWAITS</p><h3 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 30px; letter-spacing: 1px; color: #FEFDFF">THE HUNT</h3><p style="margin: 0; color: #FEFDFF; line-height: 1.6; font-size: 16px">As the world prepares to enter Vice City, millions of players are about to search Leonida for the creature hidden in the leaks. The hunt begins now.</p></div></article>
-</div>
-<div style="background: rgba(34,16,61,0.74); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 10px 36px rgba(255,41,160,0.22); border-radius: 22px; background: rgba(255,255,255,0.18); color: #FFF4FC; padding: clamp(24px, 5vw, 56px); font-family: 'Special Elite', monospace; display: flex; flex-direction: column; gap: 16px">
-<p style="margin: 0; font-size: 14px; letter-spacing: 2px; color: #FF3FAE">LEONIDA SHERIFF'S OFFICE · INCIDENT TRANSCRIPT</p>
-<p style="margin: 0; font-size: 18px; line-height: 1.75">Re: decades of unexplained wildlife reports from the Leonida wetlands. Subject locally known as the Skunk Ape.</p>
-<p style="margin: 0; font-size: 18px; line-height: 1.75">For years, locals reported prints, missing supplies and something enormous moving beyond the cypress line.</p>
-<p style="margin: 0; font-size: 18px; line-height: 1.75">Then the GTA 6 development files leaked. Buried in the world events: Skunk Ape sighting.</p>
-<p style="margin: 0; font-size: 18px; line-height: 1.75">Hidden in the shadows. Buried in the leaks. Waiting to be discovered.</p>
-<p style="margin: 0; font-size: 18px; line-height: 1.75">As the world prepares to enter Vice City, the search for one of Leonida's biggest mysteries begins.</p>
-<p style="margin: 0; font-size: 22px; line-height: 1.5; color: #FF3FAE">Case status: OPEN. Case name: SKUNK APE ($SKUNK).</p>
-</div>
-</div>
+
+<!-- SIGHTINGS -->
+<section class="sight" id="sightings">
+  <h2>THE SIGHTINGS FILE</h2>
+  <p class="lead">Florida has been filing reports on this guy for 50 years. Now the biggest game on earth is opening his backyard to 200 million people.</p>
+  <div class="timeline">
+    <div class="ev"><div class="yr">1974</div><h3>The Dade County Wave</h3><p>A string of sightings around Miami's edge lands the "skunk ape" in Florida newspapers — a huge, foul-smelling ape-man stalking the swamps. The legend goes statewide.</p></div>
+    <div class="ev"><div class="yr">2000</div><h3>The Myakka Photos</h3><p>An anonymous woman mails two photos of a massive ape-like creature to a Florida sheriff's office, claiming it raided the apples on her porch. Still the most famous skunk ape "evidence" ever produced.</p></div>
+    <div class="ev"><div class="yr">SINCE '99</div><h3>Skunk Ape Research HQ</h3><p>A real roadside headquarters in Ochopee, deep in the Everglades, dedicated entirely to tracking him. You can literally visit. The locals never stopped believing.</p></div>
+    <div class="ev"><div class="yr">2015</div><h3>Rockstar Loves Cryptids</h3><p>GTA V ships a full Bigfoot easter-egg quest line — a sasquatch you can hunt and even play as. Rockstar has been planting cryptids in their games for decades.</p></div>
+    <div class="ev hot"><div class="yr">NOV 19 · 2026</div><h3>Leonida Opens</h3><p>GTA 6 launches — set in Leonida, a swamp state crawling with wildlife. Every player on earth is about to go looking for what's hiding in those glades. He's been waiting 50 years for this.</p></div>
+  </div>
 </section>
-</div>
-<div style="background: radial-gradient(circle at 6% 4%, rgba(222,135,58,0.45) 0, rgba(222,135,58,0) 18%), radial-gradient(circle at 94% 10%, rgba(144,165,158,0.7) 0, rgba(144,165,158,0) 20%), radial-gradient(circle at 12% 40%, rgba(159,109,108,0.45) 0, rgba(159,109,108,0) 18%), radial-gradient(circle at 90% 55%, rgba(209,147,108,0.55) 0, rgba(209,147,108,0) 18%), radial-gradient(circle at 20% 78%, rgba(111,117,83,0.4) 0, rgba(111,117,83,0) 18%), radial-gradient(circle at 85% 92%, rgba(222,135,58,0.4) 0, rgba(222,135,58,0) 16%), linear-gradient(180deg, #140925 0%, #102B3B 48%, #241037 100%)">
-<section id="theory" style="position: relative; overflow: hidden; padding: 88px 20px; background: radial-gradient(circle at 15% 20%, rgba(209,147,108,0.55) 0, rgba(209,147,108,0) 30%), radial-gradient(circle at 85% 80%, rgba(159,109,108,0.5) 0, rgba(159,109,108,0) 32%), linear-gradient(180deg, #15283F 0%, #34123F 100%)">
-<svg aria-hidden="true" width="420" height="520" viewBox="0 0 200 260" style="position: absolute; right: -60px; bottom: -40px; opacity: 0.22"><path d="M104 260 C100 200 96 150 100 96" stroke="#FFF4FC" stroke-width="7" fill="none"></path><path d="M100 96 C70 70 30 72 4 96 C40 84 70 88 100 98 Z M100 96 C130 66 170 66 196 90 C162 82 132 88 100 98 Z M100 96 C88 56 60 34 26 30 C58 46 80 66 98 98 Z M100 96 C116 54 146 34 180 32 C148 48 122 68 102 98 Z M100 96 C100 60 96 30 84 8 C104 30 108 62 102 98 Z" fill="#FFF4FC"></path></svg>
-<div style="position: relative; max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
-<div style="display: flex; flex-direction: column; gap: 12px; max-width: 780px">
-<p style="margin: 0; font-family: 'Special Elite', monospace; color: #FFE6A8; letter-spacing: 3px; font-size: 14px">THE LEAKED FILES</p>
-<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(42px, 5.6vw, 78px); line-height: 1.02; letter-spacing: 1.5px; color: #FFFFFF; text-shadow: 0 2px 18px rgba(0,0,0,0.25)">WHERE THE LEGEND HIDES</h2>
-<p style="margin: 0; color: #FFFFFF; font-size: 19px; line-height: 1.6; text-shadow: 0 1px 6px rgba(0,0,0,0.35)">The development files put the Skunk Ape legend back on the map. Leonida's swamps are enormous. These are the places the $SKUNK community will search first.</p>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
-<div style="background: rgba(0,0,0,0.28); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.22); border-radius: 22px; padding: 12px 12px 24px; display: flex; flex-direction: column; gap: 10px; color: #FFFFFF"><img src="images/v2-grassrivers-dawn.jpg" alt="The masked Skunk Ape watching an airboat cross the Grassrivers at dawn" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px"><p style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 52px; color: #FFE6A8; line-height: 1">01</p><h3 style="margin: 0; font-size: 20px; font-weight: 700">Grassrivers at dawn</h3><p style="margin: 0; line-height: 1.6">Fog, mangroves, airboats. A random encounter that only spawns in heavy fog before sunrise, deep in the wetlands.</p></div>
-<div style="background: rgba(0,0,0,0.28); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.22); border-radius: 22px; padding: 12px 12px 24px; display: flex; flex-direction: column; gap: 10px; color: #FFFFFF"><img src="images/v2-hunter-returns.jpg" alt="The masked Skunk Ape hiding behind a tree while a hunter searches Leonida" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px"><p style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 52px; color: #FFE6A8; line-height: 1">02</p><h3 style="margin: 0; font-size: 20px; font-weight: 700">The leaked sighting</h3><p style="margin: 0; line-height: 1.6">A world event buried in the GTA 6 development files brought the legend back. Somewhere in Leonida, the sighting is waiting to trigger.</p></div>
-<div style="background: rgba(0,0,0,0.28); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.22); border-radius: 22px; padding: 12px 12px 24px; display: flex; flex-direction: column; gap: 10px; color: #FFFFFF"><img src="images/v2-jerky-trail.jpg" alt="The masked Skunk Ape carrying stolen jerky along a swamp trail" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px"><p style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 52px; color: #FFE6A8; line-height: 1">03</p><h3 style="margin: 0; font-size: 20px; font-weight: 700">The jerky trail</h3><p style="margin: 0; line-height: 1.6">Rural gas stations keep reporting stolen jerky. Mark the robberies on the map and they draw a line straight into the trees.</p></div>
-<div style="background: rgba(0,0,0,0.28); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.22); border-radius: 22px; padding: 12px 12px 24px; display: flex; flex-direction: column; gap: 10px; color: #FFFFFF"><img src="images/v2-mount-kalaga-mystics.jpg" alt="Mount Kalaga mystics spotting the masked Skunk Ape at their camp" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px"><p style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 52px; color: #FFE6A8; line-height: 1">04</p><h3 style="margin: 0; font-size: 20px; font-weight: 700">Mount Kalaga mystics</h3><p style="margin: 0; line-height: 1.6">Rockstar's own Leonida guide teases mystics in the backwoods. We think they're the first group in Leonida to actually catch him in the open.</p></div>
-</div>
-</div>
+
+<!-- GALLERY -->
+<section class="gal">
+  <h2>EVIDENCE LOCKER</h2>
+  <div class="cards">
+    <div class="card wide" style="grid-column:1/-1"><img src="assets/keyart.jpg" alt=""><div class="cap"><b>EXHIBIT A — THE GLADES BELONG TO HIM</b><span>The last photo the research team filed before going quiet. He wasn't hiding. He was posing.</span></div></div>
+    <div class="card wide"><img src="assets/ev5.jpg" alt=""><div class="cap"><b>EXHIBIT B — TRAIL CAM, 3:14 AM</b><span>Big Cypress wildlife camera. The chain reflects infrared. The smell does not photograph.</span></div></div>
+    <div class="card wide"><img src="assets/ev7.jpg" alt=""><div class="cap"><b>EXHIBIT C — GAS STATION CCTV</b><span>Bought one energy drink. Left exact change. Cashier has not returned to work.</span></div></div>
+    <div class="card wide"><img src="assets/ev6.jpg" alt=""><div class="cap"><b>EXHIBIT D — OCEAN DRIVE, 1:47 AM</b><span>Witnesses say he walked straight past the club line. Nobody stopped him. Nobody ever stops him.</span></div></div>
+    <div class="card wide"><img src="assets/ev4.jpg" alt=""><div class="cap"><b>EXHIBIT E — NEWS CHOPPER 7</b><span>Clocked crossing the levee at a dead sprint. The canal didn't slow him down either.</span></div></div>
+    <div class="card wide"><img src="assets/ev1.jpg" alt=""><div class="cap"><b>EXHIBIT F — THE CREEK</b><span>First clear daylight capture in 50 years. Witness: "he just stood there… then the smell hit."</span></div></div>
+    <div class="card wide"><img src="assets/ev2.jpg" alt=""><div class="cap"><b>EXHIBIT G — THE GATOR PASS</b><span>Even the apex predators pull over when he's running the channel.</span></div></div>
+    <div class="card wide" style="grid-column:1/-1"><img src="assets/ev3.jpg" alt=""><div class="cap"><b>EXHIBIT H — FULL SEND</b><span>Subject last seen doing 60 through the glades. Chain confirmed real gold. $SKUNK confirmed real ticker.</span></div></div>
+  </div>
 </section>
-<section id="videos" style="padding: 88px 20px">
-<div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
-<div style="display: flex; flex-direction: column; gap: 12px; max-width: 820px">
-<p style="margin: 0; font-family: 'Special Elite', monospace; color: #E8C7E4; letter-spacing: 3px; font-size: 14px">THE LEAK IS ALREADY SPREADING</p>
-<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(42px, 5.6vw, 78px); line-height: 1.02; letter-spacing: 1.5px; color: #FFF4FC">THE LEAK FILES</h2>
-<p style="margin: 0; color: #E8C7E4; font-size: 19px; line-height: 1.6">The development leak turned an old Leonida legend into one of GTA 6's most intriguing mysteries. Follow the trail here.</p>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-<a target="_blank" rel="noopener" href="https://youtu.be/irzbYa_Dr2U" style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 20px; text-decoration: none; color: #FFF4FC; display: flex; flex-direction: column; gap: 10px"><span style="display: flex; align-items: center; gap: 8px; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FF7A45"><svg aria-hidden="true" width="22" height="16" viewBox="0 0 22 16"><rect x="0" y="0" width="22" height="16" rx="4" fill="#FF7A45"></rect><path d="M9 4.5 L15 8 L9 11.5 Z" fill="#FFFFFF"></path></svg>VIDEO</span><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; line-height: 1.15; letter-spacing: 0.5px">Everything We Know About GTA 6 So Far</span><span style="color: #E8C7E4; font-size: 14px">TGG</span></a>
-<a target="_blank" rel="noopener" href="https://youtu.be/aItBaG098TI" style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 20px; text-decoration: none; color: #FFF4FC; display: flex; flex-direction: column; gap: 10px"><span style="display: flex; align-items: center; gap: 8px; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FF7A45"><svg aria-hidden="true" width="22" height="16" viewBox="0 0 22 16"><rect x="0" y="0" width="22" height="16" rx="4" fill="#FF7A45"></rect><path d="M9 4.5 L15 8 L9 11.5 Z" fill="#FFFFFF"></path></svg>VIDEO</span><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; line-height: 1.15; letter-spacing: 0.5px">GTA 6 Skunk Ape Easter Egg Explained!</span><span style="color: #E8C7E4; font-size: 14px">Robbin Rams</span></a>
-<a target="_blank" rel="noopener" href="https://youtu.be/YaKuzBe0l94" style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 20px; text-decoration: none; color: #FFF4FC; display: flex; flex-direction: column; gap: 10px"><span style="display: flex; align-items: center; gap: 8px; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FF7A45"><svg aria-hidden="true" width="22" height="16" viewBox="0 0 22 16"><rect x="0" y="0" width="22" height="16" rx="4" fill="#FF7A45"></rect><path d="M9 4.5 L15 8 L9 11.5 Z" fill="#FFFFFF"></path></svg>VIDEO</span><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; line-height: 1.15; letter-spacing: 0.5px">GTA 6: 10 Legendary Animals in Grand Theft Auto 6</span><span style="color: #E8C7E4; font-size: 14px">Boznean</span></a>
-<a target="_blank" rel="noopener" href="https://youtube.com/shorts/1WdxGC9n5vo" style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 20px; text-decoration: none; color: #FFF4FC; display: flex; flex-direction: column; gap: 10px"><span style="display: flex; align-items: center; gap: 8px; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FF7A45"><svg aria-hidden="true" width="22" height="16" viewBox="0 0 22 16"><rect x="0" y="0" width="22" height="16" rx="4" fill="#FF7A45"></rect><path d="M9 4.5 L15 8 L9 11.5 Z" fill="#FFFFFF"></path></svg>SHORT</span><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; line-height: 1.15; letter-spacing: 0.5px">Is the Skunk Ape Hiding in GTA 6?</span><span style="color: #E8C7E4; font-size: 14px">VERIFIEDVICEHQ</span></a>
-<a target="_blank" rel="noopener" href="https://youtube.com/shorts/5Xzr7FhDnGg" style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 20px; text-decoration: none; color: #FFF4FC; display: flex; flex-direction: column; gap: 10px"><span style="display: flex; align-items: center; gap: 8px; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FF7A45"><svg aria-hidden="true" width="22" height="16" viewBox="0 0 22 16"><rect x="0" y="0" width="22" height="16" rx="4" fill="#FF7A45"></rect><path d="M9 4.5 L15 8 L9 11.5 Z" fill="#FFFFFF"></path></svg>SHORT</span><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; line-height: 1.15; letter-spacing: 0.5px">GTA 6 Legendary Animals &amp; Skunk Ape Secrets</span><span style="color: #E8C7E4; font-size: 14px">Clip Star</span></a>
-<a target="_blank" rel="noopener" href="https://youtube.com/shorts/0Shtq2ujd2M" style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 20px; text-decoration: none; color: #FFF4FC; display: flex; flex-direction: column; gap: 10px"><span style="display: flex; align-items: center; gap: 8px; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FF7A45"><svg aria-hidden="true" width="22" height="16" viewBox="0 0 22 16"><rect x="0" y="0" width="22" height="16" rx="4" fill="#FF7A45"></rect><path d="M9 4.5 L15 8 L9 11.5 Z" fill="#FFFFFF"></path></svg>SHORT</span><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; line-height: 1.15; letter-spacing: 0.5px">The Skunk Ape Mentioned in the GTA 6 Extended Look</span><span style="color: #E8C7E4; font-size: 14px">Mattouf_gamesVI</span></a>
-<a target="_blank" rel="noopener" href="https://youtube.com/shorts/HO7T1ilVA9Q" style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 20px; text-decoration: none; color: #FFF4FC; display: flex; flex-direction: column; gap: 10px"><span style="display: flex; align-items: center; gap: 8px; font-family: 'Special Elite', monospace; font-size: 13px; letter-spacing: 2px; color: #FF7A45"><svg aria-hidden="true" width="22" height="16" viewBox="0 0 22 16"><rect x="0" y="0" width="22" height="16" rx="4" fill="#FF7A45"></rect><path d="M9 4.5 L15 8 L9 11.5 Z" fill="#FFFFFF"></path></svg>SHORT</span><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; line-height: 1.15; letter-spacing: 0.5px">The Skunk Ape Mystery in GTA 6</span><span style="color: #E8C7E4; font-size: 14px">Gator Keys</span></a>
-</div>
-</div>
+
+<!-- BUY -->
+<section class="buy" id="buy">
+  <h2>JOIN THE HUNT</h2>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>GET A WALLET</h3><p>Download Phantom or Solflare. Your airboat into the glades.</p></div>
+    <div class="step"><div class="n">2</div><h3>LOAD UP SOL</h3><p>Buy SOL and send it to your wallet. Fuel for the fan boat.</p></div>
+    <div class="step"><div class="n">3</div><h3>SWAP FOR $SKUNK</h3><p>Paste the contract below. Welcome to the swamp.</p></div>
+  </div>
+  <div class="cabox">
+    <div class="lbl">CONTRACT ADDRESS</div>
+    <code id="caFull">BetzJU2X9UEgG2qdo8UKbJ6q1iiFGs23axh8vRqEpump</code>
+    <button id="copyBtn">COPY CA</button>
+    <div class="note">Always verify the contract before you swap. This is the only official address.</div>
+  </div>
 </section>
-<section id="buy" style="padding: 88px 20px 96px">
-<div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
-<div style="display: flex; flex-direction: column; gap: 12px">
-<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(42px, 5.6vw, 78px); line-height: 1.02; letter-spacing: 1.5px; color: #FFF4FC">HOW TO BUY $SKUNK</h2>
-<p style="margin: 0; color: #E8C7E4; font-size: 18px">Four steps from Vice City to the Grassrivers.</p>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
-<div style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 10px"><p style="margin: 0; font-family: 'Special Elite', monospace; color: #FF7A45; letter-spacing: 2px">STEP 01</p><h3 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 26px; letter-spacing: 1px; color: #FFF4FC">GET A SOLANA WALLET</h3><p style="margin: 0; color: #E8C7E4; line-height: 1.6">Phantom, Solflare or Backpack. Write your seed phrase on paper. Nobody legit will ever ask for it.</p></div>
-<div style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 10px"><p style="margin: 0; font-family: 'Special Elite', monospace; color: #FF7A45; letter-spacing: 2px">STEP 02</p><h3 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 26px; letter-spacing: 1px; color: #FFF4FC">LOAD UP SOL</h3><p style="margin: 0; color: #E8C7E4; line-height: 1.6">Buy SOL on an exchange you trust and send it to your wallet. Airboat fuel.</p></div>
-<div style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 10px"><p style="margin: 0; font-family: 'Special Elite', monospace; color: #FF7A45; letter-spacing: 2px">STEP 03</p><h3 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 26px; letter-spacing: 1px; color: #FFF4FC">COPY THE VERIFIED CA</h3><p style="margin: 0; color: #E8C7E4; line-height: 1.6">Only from this site: [YOUR DOMAIN]. Any other "$SKUNK" address is a fake print.</p></div>
-<div style="background: rgba(34,16,61,0.80); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,71,172,0.42); box-shadow: 0 10px 36px rgba(255,41,160,0.20); border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 10px"><p style="margin: 0; font-family: 'Special Elite', monospace; color: #FF7A45; letter-spacing: 2px">STEP 04</p><h3 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: 26px; letter-spacing: 1px; color: #FFF4FC">SWAP &amp; JOIN THE HUNT</h3><p style="margin: 0; color: #E8C7E4; line-height: 1.6">Paste the CA on [YOUR DEX], set your amount, confirm. Welcome to the search party.</p></div>
-</div>
-<p style="margin: 0; padding: 16px 20px; border-radius: 16px; background: rgba(0,0,0,0.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.25); color: #FFE6A8; font-size: 15px">Never trust a CA from a DM, a reply, or a stranger in the swamp. This page is the only source.</p>
-</div>
-</section>
-</div>
-<section style="position: relative; overflow: hidden; padding: 104px 20px; background: linear-gradient(180deg, #170A2B 0%, #4C1749 46%, #8F2E52 76%, #211034 100%)">
-<svg aria-hidden="true" width="300" height="400" viewBox="0 0 200 260" style="position: absolute; left: -50px; bottom: -30px; opacity: 0.55"><path d="M104 260 C100 200 96 150 100 96" stroke="#FFF4FC" stroke-width="7" fill="none"></path><path d="M100 96 C70 70 30 72 4 96 C40 84 70 88 100 98 Z M100 96 C130 66 170 66 196 90 C162 82 132 88 100 98 Z M100 96 C88 56 60 34 26 30 C58 46 80 66 98 98 Z M100 96 C116 54 146 34 180 32 C148 48 122 68 102 98 Z M100 96 C100 60 96 30 84 8 C104 30 108 62 102 98 Z" fill="#FFF4FC"></path></svg>
-<svg aria-hidden="true" width="360" height="480" viewBox="0 0 200 260" style="position: absolute; right: -40px; bottom: -40px; opacity: 0.55"><path d="M104 260 C100 200 96 150 100 96" stroke="#FFF4FC" stroke-width="7" fill="none"></path><path d="M100 96 C70 70 30 72 4 96 C40 84 70 88 100 98 Z M100 96 C130 66 170 66 196 90 C162 82 132 88 100 98 Z M100 96 C88 56 60 34 26 30 C58 46 80 66 98 98 Z M100 96 C116 54 146 34 180 32 C148 48 122 68 102 98 Z M100 96 C100 60 96 30 84 8 C104 30 108 62 102 98 Z" fill="#FFF4FC"></path></svg>
-<div style="position: relative; max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center">
-<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-size: clamp(40px, 6vw, 80px); line-height: 1.05; letter-spacing: 2px; color: #FFFFFF; text-shadow: 0 4px 24px rgba(84,16,96,0.62)">JOIN THE LEONIDA SEARCH PARTY</h2>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; width: 100%">
-<a target="_blank" rel="noopener" href="https://x.com/Skunkapeonsol" style="background: rgba(0,0,0,0.28); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.22); border-radius: 22px; padding: 22px; text-decoration: none; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px"><span style="font-family: Anton, Impact, sans-serif; font-size: 24px; letter-spacing: 1px">X (TWITTER)</span><span style="color: #FFE6A8; font-size: 14px">OFFICIAL $SKUNK ACCOUNT</span></a>
-<a target="_blank" rel="noopener" href="https://t.me/skunkapeonsol" style="background: rgba(0,0,0,0.28); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.22); border-radius: 22px; padding: 22px; text-decoration: none; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px"><span style="font-family: Anton, Impact, sans-serif; font-size: 24px; letter-spacing: 1px">TELEGRAM</span><span style="color: #FFE6A8; font-size: 14px">@skunkapeonsol</span></a>
-<a target="_blank" rel="noopener" href="https://dexscreener.com/solana/AusWEfi1py2oxThRWyGh86QcUyNH9jButcqb6vSzbqaq" style="background: rgba(0,0,0,0.28); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.22); border-radius: 22px; padding: 22px; text-decoration: none; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px"><span style="font-family: Anton, Impact, sans-serif; font-size: 24px; letter-spacing: 1px">DEXSCREENER</span><span style="color: #FFE6A8; font-size: 14px">VIEW LIVE $SKUNK CHART</span></a>
-</div>
-</div>
-</section>
-<footer style="padding: 40px 20px; background: #FFF4FC">
-<div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; color: #4A1A53; font-size: 13px; line-height: 1.6">
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px"><span style="font-family: Anton, Impact, sans-serif; letter-spacing: 1px; color: #FFFFFF; font-size: 20px">SKUNK APE · $SKUNK</span><a target="_blank" rel="noopener" href="https://x.com/Skunkapeonsol" style="color: #FFE6A8; font-weight: 700; font-size: 14px; letter-spacing: 1px">FOLLOW $SKUNK ON X</a></div>
-<p style="margin: 0">A fan-made memecoin. Not affiliated with, endorsed by, or connected to Rockstar Games, Take-Two or Grand Theft Auto. Not financial advice.</p>
-<p style="margin: 0">Past-game details are from community wikis and coverage. The "Skunk Ape sighting" reference comes from leaked 2022 development footage, not an official Rockstar Games release, and may not appear in the final game. Theories on this site are fan speculation. Linked videos are by independent creators.</p>
-</div>
+
+<!-- FOOTER -->
+<footer>
+  <h2>FOLLOW THE STENCH</h2>
+  <div class="links">
+    <a href="https://pump.fun/coin/BetzJU2X9UEgG2qdo8UKbJ6q1iiFGs23axh8vRqEpump" target="_blank" rel="noopener">PUMP.FUN</a>
+    <a href="https://dexscreener.com/solana/AusWEfi1py2oxThRWyGh86QcUyNH9jButcqb6vSzbqaq" target="_blank" rel="noopener">CHART</a>
+    <a href="https://x.com/Skunkapeonsol" target="_blank" rel="noopener">X / TWITTER</a>
+    <a href="https://t.me/skunkapeonsol" target="_blank" rel="noopener" id="tgLink">TELEGRAM</a>
+  </div>
+  <p class="fine">$SKUNK is a meme coin with no intrinsic value and no promise of financial return. It's a 7-foot ape in a luchador mask. Do your own research — preferably in the swamp.</p>
 </footer>
 
-</div>
 <script>
 (function(){
-  var target=new Date('2026-11-19T00:00:00-05:00').getTime();
-  function pad(n){return (n<10?'0':'')+n}
+  'use strict';
+  var CA='BetzJU2X9UEgG2qdo8UKbJ6q1iiFGs23axh8vRqEpump';
+
+  /* marquee duplicate for seamless loop */
+  var mq=document.getElementById('mq');mq.innerHTML+=mq.innerHTML;
+
+  /* copy handlers */
+  function copyCA(btnTxtEl,orig){
+    navigator.clipboard.writeText(CA).then(function(){
+      btnTxtEl.textContent='COPIED ✓';setTimeout(function(){btnTxtEl.textContent=orig},1200);
+    });
+  }
+  var pill=document.getElementById('caPill'),pt=document.getElementById('caPillText');
+  pill.addEventListener('click',function(){
+    navigator.clipboard.writeText(CA).then(function(){
+      var o=pt.textContent;pt.textContent='copied ✓';setTimeout(function(){pt.textContent=o},1200);
+    });
+  });
+  var cb=document.getElementById('copyBtn');
+  cb.addEventListener('click',function(){copyCA(cb,'COPY CA')});
+
+  /* countdown to GTA6 Nov 19 2026 */
+  var T=new Date('2026-11-19T00:00:00-05:00').getTime();
   function tick(){
-    var s=Math.max(0,Math.floor((target-Date.now())/1000));
-    document.getElementById('cd-d').textContent=pad(Math.floor(s/86400));
-    document.getElementById('cd-h').textContent=pad(Math.floor(s%86400/3600));
-    document.getElementById('cd-m').textContent=pad(Math.floor(s%3600/60));
-    document.getElementById('cd-s').textContent=pad(s%60);
+    var d=T-Date.now();if(d<0)d=0;
+    var dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4),ss=Math.floor(d%6e4/1e3);
+    document.getElementById('dd').textContent=dd;
+    document.getElementById('hh').textContent=hh;
+    document.getElementById('mm').textContent=mm;
+    document.getElementById('ss').textContent=ss;
   }
   tick();setInterval(tick,1000);
-  var b=document.getElementById('copy-btn');
-  b.addEventListener('click',function(){
-    var t=document.getElementById('ca-text').textContent.trim();
-    navigator.clipboard&&navigator.clipboard.writeText(t).then(function(){b.textContent='COPIED';setTimeout(function(){b.textContent='COPY'},1500)});
-  });
+
 })();
 </script>
-<!-- deployment refresh 2026-11-11 -->
 </body>
 </html>
