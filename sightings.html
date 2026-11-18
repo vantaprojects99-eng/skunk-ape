@@ -68,7 +68,8 @@ header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify
   background:linear-gradient(135deg,var(--pink),#ff7a3d);color:#fff;box-shadow:0 0 24px rgba(255,62,165,.5);transition:transform .15s}
 .logbtn:hover{transform:translateY(-2px)}
 .logbtn.cancel{background:var(--cream);color:var(--ink);box-shadow:none}
-#map{display:block;width:100%;height:auto;touch-action:manipulation}
+#map{display:block;width:100%;height:min(82vh,880px);touch-action:manipulation}
+@media (max-width:760px){#map{height:auto}}
 #map.placing{cursor:crosshair}
 .hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;padding:11px 18px;border-radius:999px;
   background:rgba(12,10,16,.85);border:1px solid var(--hotpink);font-weight:600;font-size:14px;white-space:nowrap;display:none}
@@ -165,7 +166,8 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   .chip{padding:8px 11px;font-size:12px}
   .logbtn{padding:11px 16px;font-size:12px}
   .legend{display:none}
-  .region-label{font-size:20px}
+  .region-label{font-size:21px}
+  .region-label.sm{font-size:16px}
   .row2{grid-template-columns:1fr}
   .hint{font-size:12.5px;bottom:10px}
 }
@@ -226,58 +228,39 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
           <clipPath id="landClip"><path id="landPathC" d=""/></clipPath>
         </defs>
 
-        <rect width="1000" height="720" fill="url(#sea)"/>
-        <!-- wave lines -->
-        <g stroke="#7b4dff" stroke-opacity=".14" stroke-width="1.5" fill="none">
-          <path d="M760 120 q20 -8 40 0 t40 0 t40 0"/><path d="M790 250 q20 -8 40 0 t40 0 t40 0"/>
-          <path d="M740 420 q20 -8 40 0 t40 0 t40 0"/><path d="M780 600 q20 -8 40 0 t40 0 t40 0"/>
-          <path d="M120 360 q20 -8 40 0 t40 0 t40 0"/><path d="M200 520 q20 -8 40 0 t40 0 t40 0"/>
-          <path d="M90 620 q20 -8 40 0 t40 0 t40 0"/>
+        <rect x="-1000" y="-1000" width="3000" height="3000" fill="url(#sea)"/>
+        <g stroke="#7b4dff" stroke-opacity=".16" stroke-width="1.5" fill="none">
+          <path d="M30 120 q15 -6 30 0 t30 0 t30 0"/><path d="M560 110 q15 -6 30 0 t30 0"/>
+          <path d="M565 600 q15 -6 30 0 t30 0"/><path d="M25 520 q15 -6 30 0 t30 0"/><path d="M440 715 q15 -6 30 0 t30 0"/>
         </g>
-
-        <!-- land: glow, body, textures -->
-        <path id="landGlow" d="" fill="none" stroke="#ff4fa3" stroke-opacity=".35" stroke-width="10" filter="url(#glow)"/>
-        <path id="landPath" d="" fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".55" stroke-width="2"/>
+        <path id="landGlow" d="" fill="none" stroke="#ff4fa3" stroke-opacity=".35" stroke-width="8" filter="url(#glow)"/>
+        <path id="hitPath" d="M358 35L323 41L314 62L297 70L265 65L256 55L253 37L238 42L190 96L193 120L188 132L165 141L159 164L146 178L113 187L106 205L85 223L72 253L54 262L54 294L44 312L53 340L76 368L95 342L76 339L66 332L59 319L63 301L75 291L101 285L113 289L124 302L132 325L120 345L140 362L143 382L127 418L110 426L90 415L84 382L76 376L73 408L83 440L91 455L127 454L154 467L166 483L173 536L198 545L220 562L228 576L229 597L246 606L253 618L272 626L284 644L309 648L321 656L327 668L325 680L297 706L302 713L316 709L344 688L406 605L420 556L449 526L475 518L500 498L528 498L539 479L541 377L536 336L481 272L463 224L466 193L478 162L471 153L459 166L446 170L433 166L423 156L402 100L404 77L382 64L374 45ZM224 685L218 681L186 679L168 662L157 659L139 674L119 679L103 707L124 726L173 725L207 707L224 691ZM272 707L256 704L252 710L262 717Z" fill="none" stroke="none" pointer-events="none"/>
+        <path id="landPath" d="" fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".6" stroke-width="1.4" stroke-linejoin="round"/>
         <g clip-path="url(#landClip)">
-          <path d="M150 60 L470 60 L470 230 L150 230 Z" fill="url(#pines)"/>
-          <path d="M470 470 C520 455 600 470 640 500 L650 640 L470 640 Z" fill="url(#marsh)"/>
-          <path d="M600 470 C625 470 650 490 662 520 L655 560 C640 560 615 545 600 530 Z" fill="url(#city)"/>
+          <path d="M150 50 L420 50 L420 235 L150 235 Z" fill="url(#pines)"/>
+          <path d="M190 520 L380 520 L380 650 L190 650 Z" fill="url(#marsh)"/>
+          <path d="M395 300 L530 300 L530 470 L395 470 Z" fill="url(#city)"/>
         </g>
-        <!-- inland water -->
-        <ellipse cx="555" cy="395" rx="34" ry="26" fill="#2a1550" stroke="#7fe8ff" stroke-opacity=".35" stroke-width="1.5"/>
-        <path id="beachIsland" d="M674 452 C681 478 686 520 685 566 C684 578 678 582 675 572 C677 532 675 492 668 456 Z" fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".55" stroke-width="1.6"/>
-        <rect x="664" y="500" width="7" height="12" rx="2" fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".45" stroke-width="1.2"/>
-        <g stroke="#ffd98a" stroke-opacity=".35" stroke-width="1.6"><path d="M660 506 L676 506"/><path d="M658 482 L672 480"/></g>
-        <path d="M555 421 C548 450 540 470 530 500" stroke="#7fe8ff" stroke-opacity=".3" stroke-width="2" fill="none"/>
-        <path d="M300 160 C330 200 350 240 365 290" stroke="#7fe8ff" stroke-opacity=".22" stroke-width="2" fill="none"/>
-        <!-- keys -->
-        <g fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".5" stroke-width="1.4">
-          <ellipse cx="575" cy="664" rx="16" ry="6" transform="rotate(-20 575 664)"/>
-          <ellipse cx="540" cy="680" rx="18" ry="6" transform="rotate(-12 540 680)"/>
-          <ellipse cx="500" cy="690" rx="16" ry="5.5" transform="rotate(-6 500 690)"/>
-          <ellipse cx="462" cy="695" rx="13" ry="5"/>
-          <ellipse cx="428" cy="696" rx="10" ry="4.5"/>
+        <ellipse cx="362" cy="227" rx="22" ry="29" fill="#2a1550" stroke="#7fe8ff" stroke-opacity=".4" stroke-width="1.4"/>
+        <path d="M345 252 C330 300 300 330 260 360 C230 385 215 420 205 460" stroke="#7fe8ff" stroke-opacity=".28" stroke-width="1.6" fill="none"/>
+        <g stroke="#ffd98a" stroke-opacity=".3" stroke-width="1.6" fill="none" stroke-dasharray="5 6">
+          <path d="M150 255 C220 270 300 300 360 330 C400 350 430 370 460 390"/>
+          <path d="M290 95 C300 180 310 260 320 340 C330 420 320 500 300 580 C310 620 330 640 360 660 C320 690 260 705 170 702"/>
+          <path d="M460 390 C470 440 470 500 440 560 C420 600 380 630 360 660"/>
         </g>
-        <!-- roads -->
-        <g stroke="#ffd98a" stroke-opacity=".28" stroke-width="2" fill="none" stroke-dasharray="6 7">
-          <path d="M120 150 C250 135 380 150 470 175 C520 200 560 250 590 320 C610 380 625 440 640 515"/>
-          <path d="M470 175 C455 240 470 300 500 340 C520 370 535 380 545 395"/>
-          <path d="M520 560 C560 600 590 640 575 664 C560 680 520 690 430 696"/>
-          <path d="M455 420 C500 430 560 470 640 515"/>
-        </g>
-
         <g id="heatLayer"></g>
         <!-- labels -->
-        <g id="labels">
-          <text class="region-label" x="70" y="132">PORT GELLHORN</text>
-          <text class="region-label" x="250" y="118">MOUNT KALAGA</text>
-          <text class="region-label sm" x="262" y="136">NATIONAL PARK</text>
-          <text class="region-label" x="462" y="446">AMBROSIA</text>
-          <text class="region-label sm" x="512" y="362">LAKE LEONIDA</text>
-          <text class="region-label" x="510" y="592">GRASSRIVERS</text>
-          <text class="region-label" x="696" y="500">VICE CITY</text>
-          <text class="region-label sm" x="696" y="520">OCEAN BEACH</text>
-          <text class="region-label" x="395" y="660">LEONIDA KEYS</text>
+        <g id="labels" text-anchor="middle">
+          <text class="region-label" x="284" y="160">MT. KALAGA</text>
+          <text class="region-label sm" x="284" y="176">NATIONAL PARK</text>
+          <text class="region-label sm" x="112" y="246">PORT GELLHORN</text>
+          <text class="region-label sm" x="362" y="272">LAKE LEONIDA</text>
+          <text class="region-label" x="352" y="352">AMBROSIA</text>
+          <text class="region-label" x="452" y="410">VICE CITY</text>
+          <text class="region-label sm" x="540" y="282">VICE BEACH</text>
+          <text class="region-label sm" x="196" y="566">WATSON BAY</text>
+          <text class="region-label" x="290" y="604">GRASSRIVERS</text>
+          <text class="region-label" x="318" y="724">LEONIDA KEYS</text>
         </g>
         <g id="pins"></g>
         <g id="ghost" class="ghost-pin"></g>
@@ -351,18 +334,18 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
 (function(){
   'use strict';
   /* ---------- map geometry ---------- */
-  var LAND='M40 128 C120 98 240 92 330 104 C400 112 450 104 520 100 C565 138 600 220 625 300 C650 380 668 450 662 520 C656 575 630 615 595 640 C560 652 530 626 515 585 C495 530 470 470 455 420 C440 370 425 300 400 250 C380 210 340 186 300 180 C240 176 170 190 110 186 C80 183 55 172 40 152 Z';
+  var LAND='M350 39L333 42L324 46L322 52L323 55L327 56L329 58L329 62L324 65L313 69L307 72L306 74L300 74L290 71L280 72L272 75L265 81L261 89L259 95L260 99L259 105L256 111L252 115L247 114L243 117L240 123L236 126L229 127L220 133L206 145L199 160L196 176L192 190L184 202L181 210L182 215L181 219L179 221L179 222L181 224L182 226L182 230L181 235L179 240L171 249L157 263L145 272L133 276L126 280L123 285L123 290L123 295L126 299L132 305L136 305L141 300L143 296L143 293L146 288L152 281L159 278L167 280L171 285L172 293L160 309L135 333L126 345L133 347L139 352L143 362L146 371L146 379L154 386L167 393L173 398L170 400L165 401L156 400L150 402L147 405L143 404L139 399L137 400L136 407L139 415L145 426L155 435L169 443L177 449L178 455L178 458L177 460L168 457L151 450L141 448L138 451L137 454L138 457L144 459L153 462L161 467L166 475L169 485L168 496L171 505L178 512L180 516L178 518L177 522L179 525L178 528L175 529L174 530L174 533L183 537L199 543L202 542L193 533L190 526L191 520L187 509L179 493L177 481L180 472L187 474L198 486L203 493L203 496L209 500L219 505L227 507L234 506L241 507L251 511L255 515L255 518L252 519L246 520L241 518L234 514L229 512L226 513L223 516L221 522L223 528L230 534L238 538L248 539L254 538L258 534L263 534L269 538L272 543L270 549L271 553L272 557L275 558L278 557L281 558L283 560L285 563L286 566L285 568L282 570L281 572L283 576L285 576L287 575L287 573L286 568L289 564L296 559L295 556L286 556L282 553L281 546L284 542L289 542L293 544L295 547L298 547L301 543L304 542L307 542L308 546L306 553L308 563L312 577L315 585L317 587L319 587L323 586L327 586L330 588L330 590L329 593L324 595L318 596L315 599L315 604L319 609L326 616L329 621L328 625L332 623L341 614L344 609L343 608L339 608L334 611L332 608L335 601L337 598L339 597L341 598L343 601L345 601L346 598L349 596L354 596L354 595L349 594L346 591L345 589L345 584L347 576L350 571L354 569L357 569L358 573L361 575L367 576L370 580L373 586L372 591L366 594L369 596L381 595L386 589L384 578L384 573L387 571L389 569L389 564L387 562L383 561L381 560L381 558L383 556L389 554L392 555L392 559L394 562L398 565L404 562L414 552L418 547L417 546L414 547L410 550L405 552L399 551L393 548L389 543L386 538L385 534L387 531L390 529L394 530L398 532L398 530L394 525L396 519L405 513L409 507L409 500L411 494L416 487L419 482L418 477L420 470L424 461L424 456L418 456L415 455L415 453L415 451L416 450L419 449L424 450L428 450L433 446L436 442L438 437L437 432L434 427L432 422L432 417L434 412L437 408L439 402L438 396L436 392L433 390L432 383L432 372L434 362L437 353L442 348L449 346L451 344L448 342L446 339L447 335L445 331L442 327L444 320L450 311L453 304L453 298L455 292L460 286L461 276L455 260L454 253L457 253L460 256L462 263L466 269L472 276L476 282L477 286L479 287L484 285L482 275L472 256L465 238L461 221L455 212L447 211L444 201L444 184L440 174L432 171L428 168L426 164L424 161L420 160L418 158L417 154L415 150L411 146L410 141L412 136L411 129L408 119L403 112L395 107L392 103L394 99L396 98L399 101L401 97L402 85L401 79L397 79L394 77L392 73L389 71L384 71L380 69L374 66L369 68L364 75L360 77L356 76L354 73L353 68L349 64L342 61L340 56L343 49L347 45L352 43L355 42L358 43L361 45L364 49L368 51L371 50L369 46L362 41ZM487 293L484 298L480 300L472 299L469 300L469 303L465 308L458 313L453 319L452 325L454 330L460 333L466 335L474 334L478 334L478 336L477 338L475 342L477 344L484 346L488 348L489 351L490 353L491 354L493 354L495 352L498 351L501 351L504 354L505 361L504 365L502 367L501 370L500 375L498 379L496 382L495 385L495 388L496 391L498 394L498 397L497 399L497 403L497 408L499 412L502 414L504 416L505 419L507 426L508 435L512 442L518 445L524 450L531 456L535 456L536 451L536 440L535 425L535 408L537 387L537 367L535 347L531 334L525 329L518 322L510 311L504 307L500 310L498 314L497 319L500 323L505 327L507 330L508 333L507 336L503 339L499 339L494 335L490 333L484 333L482 332L481 330L482 328L484 324L486 321L486 318L484 316L480 314L477 311L475 307L475 305L478 304L481 304L484 307L488 308L492 305L493 301L494 296L492 292L489 291ZM166 665L160 663L154 665L147 671L142 677L139 683L136 693L132 706L129 713L126 713L124 715L123 719L122 721L123 722L125 723L129 723L132 722L134 720L138 720L142 722L150 723L162 723L170 723L174 722L178 720L182 717L186 716L189 716L191 715L190 712L187 710L182 707L180 702L181 696L179 686L172 673ZM172 210L171 208L169 207L166 208L165 207L164 205L162 203L159 201L151 200L138 201L128 203L120 208L114 210L111 209L108 209L105 210L103 213L101 216L98 218L94 219L91 221L88 224L87 227L86 231L89 232L95 229L101 227L107 226L114 228L121 233L126 235L129 235L136 232L145 226L151 223L155 224L158 223L160 218L162 215L164 215L166 216L167 218L168 219L169 218L171 216L172 212ZM494 478L493 478L492 479L493 481L492 483L490 484L488 485L487 484L485 481L484 477L482 474L480 471L474 470L464 471L458 473L457 476L456 480L456 485L458 488L461 490L467 489L473 488L478 488L480 489L481 491L482 493L481 496L478 499L471 503L461 507L455 511L455 513L457 515L461 516L465 517L470 517L478 512L490 501L496 492L495 483ZM365 640L358 639L355 642L353 648L347 656L338 668L332 676L330 682L322 690L308 701L301 707L301 709L302 709L306 709L309 709L312 707L321 702L335 691L344 683L346 676L352 669L361 661L366 653L367 645ZM447 486L444 486L441 487L438 490L433 492L425 495L421 499L421 504L425 511L433 519L434 527L429 533L426 538L425 540L426 541L428 543L433 539L442 528L447 518L448 507L450 501L451 500L452 496L453 491L452 488L449 487ZM506 452L504 449L499 444L491 438L485 435L482 436L480 438L479 441L478 443L476 444L471 443L462 439L457 438L454 438L452 441L449 445L448 448L448 450L453 453L463 458L472 460L481 460L491 458L502 456ZM169 143L168 143L167 146L166 152L165 158L162 165L156 173L148 180L144 185L145 186L147 187L151 187L156 187L163 189L169 189L174 186L177 183L178 180L179 177L182 172L181 169L177 168L174 163L174 154L172 148L170 145ZM227 89L222 89L218 91L215 95L211 95L208 91L203 91L197 94L193 97L192 99L193 100L196 99L198 100L201 101L202 103L202 105L201 106L199 108L197 111L196 116L197 118L198 118L201 117L206 113L209 111L212 110L215 109L216 107L219 107L221 109L224 111L228 111L230 113L231 116L232 118L234 118L236 115L238 110L237 105L232 100L230 95L229 91ZM501 468L501 471L502 474L504 476L507 476L509 474L511 474L513 475L514 477L513 479L511 481L509 481L509 485L512 491L517 495L523 496L529 492L534 482L532 474L524 468L519 465L515 465L510 465L504 466ZM76 399L76 405L77 410L79 414L81 422L84 434L87 443L90 449L95 453L101 454L106 454L109 453L112 451L115 448L116 445L116 441L115 439L114 438L112 438L110 441L108 442L105 442L102 443L100 446L96 444L91 439L88 432L88 421L87 416L84 416L83 415L81 412L81 409L82 403L81 399L78 397ZM262 553L261 550L260 549L258 548L255 549L253 551L251 551L248 548L245 546L242 545L239 544L237 545L235 546L234 548L232 549L229 548L226 549L223 552L219 552L214 549L211 547L209 547L211 550L218 556L222 558L223 556L225 555L227 555L229 557L229 560L232 564L236 569L240 570L243 570L245 569L246 567L244 564L239 560L236 556L235 553L235 551L236 550L237 549L239 549L242 551L245 555L250 556L259 555ZM282 627L282 633L283 638L284 641L288 642L294 643L298 644L301 643L302 642L301 640L302 639L304 638L305 638L307 639L308 641L307 642L306 643L304 643L304 644L305 645L307 646L310 645L313 643L314 640L315 637L314 633L315 631L317 630L319 628L319 627L319 624L318 622L315 621L311 622L309 624L309 626L310 628L313 630L311 633L304 636L301 637L299 637L298 635L298 632L296 630L292 628L290 627L290 625L288 623L286 622L284 622L282 623ZM487 401L486 399L484 398L480 397L475 400L468 406L464 409L462 408L461 407L459 404L457 403L453 401L451 401L449 401L448 402L448 405L449 408L451 413L453 417L455 418L458 419L460 419L462 417L463 412L465 410L467 410L469 411L471 413L473 414L475 413L478 411L484 407L487 404L487 402ZM407 590L404 591L402 594L399 600L395 605L390 608L387 612L387 617L385 621L381 624L378 625L374 626L372 629L372 635L373 639L376 639L378 638L381 636L383 633L385 629L390 621L399 609L405 600L407 593ZM123 681L121 681L117 687L109 699L106 706L106 708L109 709L114 708L118 705L122 698L124 691L124 684ZM469 161L466 171L463 180L462 187L460 191L456 193L455 196L454 200L455 202L457 203L458 204L461 203L463 196L466 184L470 175L474 168L475 162L472 158ZM101 243L101 246L102 249L103 251L106 253L110 255L113 255L117 254L119 253L120 250L119 247L117 245L115 242L110 240L106 240L103 241ZM446 465L440 461L436 460L434 460L432 465L430 475L433 478L442 473L447 470L448 467ZM484 368L480 368L477 369L473 371L470 370L467 367L465 365L464 366L464 368L463 372L460 374L453 375L449 376L448 378L450 378L454 378L458 377L461 375L464 375L465 375L466 377L467 380L468 381L470 381L471 378L472 374L475 372L480 372L484 371L485 369ZM50 308L49 309L48 311L47 314L48 317L50 320L52 326L53 333L55 337L57 339L58 335L58 325L56 319L54 316L52 313L52 310ZM249 40L243 43L236 49L229 58L229 62L235 61L238 59L238 55L240 51L242 46L246 42L250 40ZM221 82L219 80L218 78L217 75L214 74L209 77L206 80L207 82L209 83L212 84L216 85L220 84ZM59 281L58 282L57 287L57 296L59 299L62 297L63 294L63 289L63 285L61 281Z';
   ['landPath','landGlow','landPathC'].forEach(function(id){document.getElementById(id).setAttribute('d',LAND)});
 
   var AREAS=[
-    {id:'grassrivers',name:'Grassrivers',x:545,y:560},
-    {id:'vicecity',name:'Vice City',x:640,y:515},
-    {id:'oceanbeach',name:'Ocean Beach',x:680,y:515},
-    {id:'keys',name:'Leonida Keys',x:505,y:688},
-    {id:'ambrosia',name:'Ambrosia',x:500,y:432},
-    {id:'kalaga',name:'Mount Kalaga',x:300,y:150},
-    {id:'gellhorn',name:'Port Gellhorn',x:120,y:160},
-    {id:'lake',name:'Lake Leonida',x:555,y:395}
+    {id:'grassrivers',name:'Grassrivers',x:287,y:589},
+    {id:'vicecity',name:'Vice City',x:462,y:392},
+    {id:'oceanbeach',name:'Vice Beach',x:524,y:380},
+    {id:'keys',name:'Leonida Keys',x:330,y:665},
+    {id:'ambrosia',name:'Ambrosia',x:362,y:340},
+    {id:'kalaga',name:'Mt. Kalaga',x:284,y:170},
+    {id:'gellhorn',name:'Port Gellhorn',x:138,y:210},
+    {id:'lake',name:'Lake Leonida',x:362,y:227}
   ];
   function nearestArea(x,y){var b=AREAS[0],bd=1e9;AREAS.forEach(function(a){var d=(a.x-x)*(a.x-x)+(a.y-y)*(a.y-y);if(d<bd){bd=d;b=a}});return b}
   function areaName(id){for(var i=0;i<AREAS.length;i++)if(AREAS[i].id===id)return AREAS[i].name;return id}
@@ -423,7 +406,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   function counts(){var c={};all().forEach(function(s){c[s.area]=(c[s.area]||0)+1});return c}
   function renderHeat(){
     heatG.textContent='';var c=counts();
-    AREAS.forEach(function(a){var n=c[a.id]||0;if(!n)return;heatG.appendChild(el('circle',{cx:a.x,cy:a.y,r:String(30+n*12),fill:'url(#heat)'}))});
+    AREAS.forEach(function(a){var n=c[a.id]||0;if(!n)return;heatG.appendChild(el('circle',{cx:a.x,cy:a.y,r:String(18+n*8),fill:'url(#heat)'}))});
   }
   function renderZones(){
     var c=counts(),rows=AREAS.map(function(a){return{a:a,n:c[a.id]||0}}).filter(function(r){return r.n>0}).sort(function(x,y){return y.n-x.n});
@@ -479,7 +462,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   function setPlacing(on){placing=on;card.classList.toggle('placing',on);svg.classList.toggle('placing',on);logBtn.textContent=on?'CANCEL':'+ LOG A SIGHTING';logBtn.classList.toggle('cancel',on);if(!on)ghostG.textContent=''}
   logBtn.addEventListener('click',function(){setPlacing(!placing)});
   function svgPoint(e){var pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse())}
-  function onLand(x,y){var p=document.getElementById('landPath'),bi=document.getElementById('beachIsland');try{var pt=svg.createSVGPoint();pt.x=x;pt.y=y;if(p.isPointInFill(pt)||bi.isPointInFill(pt))return true}catch(e){}return y>650&&x>415&&x<595}
+  function onLand(x,y){var p=document.getElementById('hitPath');try{var pt=svg.createSVGPoint();pt.x=x;pt.y=y;return p.isPointInFill(pt)}catch(e){return true}}
   svg.addEventListener('click',function(e){
     if(!placing)return select(null);
     var p=svgPoint(e),x=Math.round(p.x),y=Math.round(p.y);
@@ -511,7 +494,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},2400)}
 
   var gl=document.querySelector('#labels text');
-  function fitView(){var m=window.innerWidth<=760;svg.setAttribute('viewBox',m?'250 84 600 650':'20 64 790 660');gl.style.display=m?'none':''}
+  function fitView(){svg.setAttribute('viewBox','15 18 615 740')}
   fitView();window.addEventListener('resize',fitView);
   renderAll();
   /* load everyone's sightings, then refresh every 30s */
