@@ -190,7 +190,6 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
     </div>
     <div class="stats">
       <div class="stat hot"><b id="statTotal">0</b><span>Sightings</span></div>
-      <div class="stat"><b id="statCase">0</b><span>Case files</span></div>
       <div class="stat"><b id="statHot">–</b><span>Hottest zone</span></div>
     </div>
   </section>
@@ -198,11 +197,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   <section class="board">
     <div class="mapcard" id="mapcard">
       <div class="maptools">
-        <div class="chips" role="group" aria-label="Filter sightings">
-          <button class="chip" data-f="all" aria-pressed="true">All</button>
-          <button class="chip" data-f="case" aria-pressed="false">Case files</button>
-          <button class="chip" data-f="mine" aria-pressed="false">Community</button>
-        </div>
+        <span></span>
         <button class="logbtn" id="logBtn">+ LOG A SIGHTING</button>
       </div>
 
@@ -284,7 +279,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
         <g id="ghost" class="ghost-pin"></g>
       </svg>
 
-      <div class="legend"><span><i class="lc"></i>Case file</span><span><i class="lm"></i>Community sighting</span></div>
+      <div class="legend"><span><i class="lm"></i>Community sighting</span></div>
       <div class="hint" id="hint">Tap the map where you saw him</div>
     </div>
 
@@ -371,16 +366,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   var TYPES=['Glimpse','Footprints','The smell','Photo / video','Howl','Close encounter'];
 
   /* ---------- official case files (the site's own lore) ---------- */
-  var CASE=[
-    {id:'c-a',kind:'case',x:520,y:520,area:'grassrivers',type:'Photo / video',time:'Sunset',title:'Exhibit A: The Glades Belong to Him',text:"The last photo the research team filed before going quiet. He wasn't hiding. He was posing.",img:'assets/keyart.jpg?v=skunk'},
-    {id:'c-b',kind:'case',x:572,y:600,area:'grassrivers',type:'Photo / video',time:'3 AM (obviously)',title:'Exhibit B: Trail Cam, 3:14 AM',text:'Wildlife camera deep in the cypress. The chain reflects infrared. The smell does not photograph.',img:'assets/ev5.jpg'},
-    {id:'c-c',kind:'case',x:492,y:338,area:'ambrosia',type:'Photo / video',time:'Late night',title:'Exhibit C: Gas Station CCTV',text:'Bought one energy drink. Left exact change. Cashier has not returned to work.',img:'assets/ev7.jpg?v=skunk'},
-    {id:'c-d',kind:'case',x:676,y:560,area:'oceanbeach',type:'Close encounter',time:'Late night',title:'Exhibit D: Ocean Drive, 1:47 AM',text:'Walked straight past the club line. Nobody stopped him. Nobody ever stops him.',img:'assets/ev6.jpg?v=skunk'},
-    {id:'c-e',kind:'case',x:618,y:486,area:'grassrivers',type:'Photo / video',time:'Broad daylight',title:'Exhibit E: News Chopper 7',text:"Clocked crossing the levee at a dead sprint. The canal didn't slow him down either.",img:'assets/ev4.jpg'},
-    {id:'c-f',kind:'case',x:338,y:168,area:'kalaga',type:'Close encounter',time:'Broad daylight',title:'Exhibit F: The Creek',text:"Twenty years of searching, and here he is in broad daylight. Witness: 'he just stood there… then the smell hit.'",img:'assets/ev1.jpg?v=skunk'},
-    {id:'c-g',kind:'case',x:530,y:612,area:'grassrivers',type:'Glimpse',time:'Dawn fog',title:'Exhibit G: The Gator Pass',text:"Even the apex predators pull over when he's running the channel.",img:'assets/ev2.jpg'},
-    {id:'c-h',kind:'case',x:612,y:590,area:'grassrivers',type:'Photo / video',time:'Broad daylight',title:'Exhibit H: Full Send',text:'Last seen doing 60 through the glades. Chain confirmed real gold. $SKUNK confirmed real ticker.',img:'assets/ev3.jpg'}
-  ];
+  var CASE=[];
 
   /* ---------- shared storage: Supabase (publishable key is public by design; RLS limits it to read + add) ---------- */
   var SB='https://tqccjgxsqdnibhbgdurw.supabase.co/rest/v1/sightings';
@@ -438,6 +424,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   function renderZones(){
     var c=counts(),rows=AREAS.map(function(a){return{a:a,n:c[a.id]||0}}).filter(function(r){return r.n>0}).sort(function(x,y){return y.n-x.n});
     var max=rows.length?rows[0].n:1,z=document.getElementById('zones');z.textContent='';
+    if(!rows.length){var e=document.createElement('p');e.className='empty';e.textContent='No sightings yet. The first report claims the hottest zone.';z.appendChild(e)}
     rows.slice(0,6).forEach(function(r){
       var b=document.createElement('button');b.className='zone';b.type='button';
       var t=document.createElement('b');t.textContent=r.a.name;var n=document.createElement('span');n.textContent=r.n;
@@ -447,7 +434,6 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
       z.appendChild(b);
     });
     document.getElementById('statTotal').textContent=all().length;
-    document.getElementById('statCase').textContent=CASE.length;
     document.getElementById('statHot').textContent=rows.length?rows[0].a.name:'–';
   }
   function renderFeed(){
