@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Sightings Map — SKUNK APE</title>
+<meta name="description" content="Log your Skunk Ape sightings across Leonida's swamps, from the Grassrivers to Vice City. $SKUNK on Solana.">
+<meta property="og:title" content="Leonida Sightings Map — SKUNK APE">
+<meta property="og:description" content="Seen him? Log it. The community map of every Skunk Ape sighting in Leonida.">
+<meta property="og:image" content="assets/banner.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/pfp.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Bungee&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff4fa3; --hotpink:#ff6ec0; --orange:#ff9a3d; --sun:#ffd98a;
+  --purple:#3a2a4a; --deep:#15101c; --deeper:#0c0a10; --cyan:#7fe8ff;
+  --ink:#0a080d; --cream:#f7f2ec; --muted:#cfc0ea;
+  --sunset:linear-gradient(180deg,#7b4dff 0%,#c44dff 28%,#ff4fa3 55%,#ff9a3d 82%,#ffd98a 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--deeper);color:var(--cream);font-family:'Outfit',sans-serif;overflow-x:hidden;
+  background-image:radial-gradient(1200px 600px at 80% -10%,rgba(196,77,255,.22),transparent 60%),radial-gradient(900px 500px at -10% 30%,rgba(255,79,163,.14),transparent 60%)}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.label{font-family:'Bungee';font-size:12px;letter-spacing:3px;color:var(--hotpink);text-transform:uppercase}
+
+/* header (matches main site) */
+header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(16px,3vw,36px);background:rgba(12,10,16,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Bungee';font-size:15px;letter-spacing:1px}
+.brand img{width:34px;height:34px;border-radius:50%;border:2px solid var(--pink)}
+.hright{display:flex;align-items:center;gap:10px}
+.pill{font-family:'Bungee';font-size:13px;letter-spacing:1px;padding:11px 18px;border-radius:999px;background:var(--cream);color:var(--ink);transition:transform .15s}
+.pill:hover{transform:scale(1.05)}
+.back{font-family:'Outfit';font-weight:600;font-size:13px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.35)}
+.back:hover{border-color:var(--hotpink);color:var(--hotpink)}
+@media (max-width:640px){.brand span{display:none}}
+
+/* intro */
+.wrap{max-width:1440px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.intro{padding:clamp(36px,6vw,70px) 0 clamp(22px,3vw,34px);display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.intro h1{font-family:'Bungee';font-size:clamp(34px,6vw,76px);line-height:.98;margin:10px 0 14px}
+.intro h1 em{font-style:normal;background:var(--sunset);-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro p{max-width:620px;color:var(--muted);font-size:clamp(15px,1.5vw,18px);line-height:1.6}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{min-width:120px;padding:14px 18px;border-radius:22px;background:rgba(12,10,16,.55);border:1px solid rgba(255,255,255,.1)}
+.stat b{display:block;font-family:'Bungee';font-size:28px;line-height:1}
+.stat span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.stat.hot b{background:var(--sunset);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* layout */
+.board{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:clamp(14px,1.6vw,22px);padding-bottom:clamp(50px,7vw,90px)}
+@media (max-width:1000px){.board{grid-template-columns:1fr}}
+
+/* map card */
+.mapcard{position:relative;border-radius:clamp(24px,2.6vw,36px);overflow:hidden;background:#140c24;
+  border:1px solid rgba(255,110,192,.28);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.maptools{position:absolute;top:14px;left:14px;right:14px;z-index:5;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;pointer-events:none}
+.maptools>*{pointer-events:auto}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:5px;border-radius:999px;background:rgba(12,10,16,.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12)}
+.chip{border:0;background:transparent;padding:9px 14px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--cream);color:var(--ink)}
+.logbtn{font-family:'Bungee';font-size:13px;letter-spacing:1px;padding:13px 20px;border-radius:999px;border:0;cursor:pointer;
+  background:linear-gradient(135deg,var(--pink),#ff7a3d);color:#fff;box-shadow:0 0 24px rgba(255,62,165,.5);transition:transform .15s}
+.logbtn:hover{transform:translateY(-2px)}
+.logbtn.cancel{background:var(--cream);color:var(--ink);box-shadow:none}
+#map{display:block;width:100%;height:auto;touch-action:manipulation}
+#map.placing{cursor:crosshair}
+.hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;padding:11px 18px;border-radius:999px;
+  background:rgba(12,10,16,.85);border:1px solid var(--hotpink);font-weight:600;font-size:14px;white-space:nowrap;display:none}
+.mapcard.placing .hint{display:block}
+.legend{position:absolute;left:14px;bottom:14px;z-index:4;display:flex;gap:14px;padding:9px 14px;border-radius:999px;
+  background:rgba(12,10,16,.7);border:1px solid rgba(255,255,255,.12);font-size:12px;color:var(--muted)}
+.mapcard.placing .legend{display:none}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.legend .lc{background:linear-gradient(135deg,#c44dff,#ff4fa3,#ff9a3d)}
+.legend .lm{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+
+/* svg pieces */
+.region-label{font-family:'Bungee';fill:rgba(247,242,236,.82);font-size:15px;letter-spacing:1.5px;pointer-events:none}
+.region-label.sm{font-size:11px;fill:rgba(207,192,234,.7)}
+.pin{cursor:pointer}
+.pin .ring{transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+.pin:hover .core,.pin.sel .core{stroke:#fff;stroke-width:3}
+.pin.new .core{animation:drop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes drop{0%{transform:translateY(-40px);opacity:0}100%{transform:none;opacity:1}}
+.pin .core{transform-box:fill-box;transform-origin:center}
+.ghost-pin{pointer-events:none}
+
+/* side panel */
+.side{display:flex;flex-direction:column;gap:clamp(14px,1.6vw,22px);min-width:0}
+.panel{border-radius:clamp(24px,2.6vw,32px);padding:22px;background:rgba(12,10,16,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1)}
+.panel h2{font-family:'Bungee';font-size:20px;margin:6px 0 14px}
+/* detail card */
+.detail{display:none}
+.detail.show{display:block}
+.detail .ph{border-radius:20px;overflow:hidden;aspect-ratio:16/10;background:#000;margin-bottom:14px}
+.detail .ph img{width:100%;height:100%;object-fit:cover}
+.detail .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tag{font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.08);color:var(--muted)}
+.tag.area{background:rgba(127,232,255,.12);color:var(--cyan)}
+.tag.case{background:rgba(255,79,163,.16);color:var(--hotpink)}
+.detail h3{font-family:'Bungee';font-size:18px;margin-bottom:8px;line-height:1.2}
+.detail p{color:#e7dcf7;font-size:15px;line-height:1.6}
+.detail .by{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.xbtn{float:right;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:transparent;cursor:pointer;font-size:18px;line-height:1}
+/* hot zones */
+.zones{display:flex;flex-direction:column;gap:9px}
+.zone{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;cursor:pointer;padding:6px 4px;border-radius:12px;border:0;background:transparent;text-align:left}
+.zone:hover{background:rgba(255,255,255,.05)}
+.zone b{font-weight:600;font-size:14.5px}
+.zone span{font-family:'Bungee';font-size:14px;color:var(--sun)}
+.zone .bar{grid-column:1/-1;height:6px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.zone .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#c44dff,#ff4fa3,#ff9a3d)}
+/* feed */
+.feed{display:flex;flex-direction:column;gap:8px;max-height:360px;overflow:auto;padding-right:4px}
+.item{display:grid;grid-template-columns:14px 1fr;gap:10px;padding:12px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid transparent;cursor:pointer;text-align:left}
+.item:hover,.item.sel{border-color:rgba(255,110,192,.5)}
+.item .dot{width:12px;height:12px;border-radius:50%;margin-top:4px}
+.item .dot.case{background:linear-gradient(135deg,#c44dff,#ff4fa3,#ff9a3d)}
+.item .dot.mine{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.item b{display:block;font-size:14px;font-weight:600;line-height:1.35}
+.item small{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.empty{color:var(--muted);font-size:14px;line-height:1.5}
+
+/* log modal */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.78);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.sheet{width:min(520px,100%);max-height:92vh;overflow:auto;border-radius:30px;padding:26px;background:#140f1d;border:1px solid rgba(255,110,192,.4);box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.sheet h2{font-family:'Bungee';font-size:24px;margin:6px 0 4px}
+.sheet .sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+.field{margin-bottom:14px}
+.field>label,.field>.lbl{display:block;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:600}
+.field select,.field input,.field textarea{width:100%;padding:13px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);outline:none}
+.field select:focus,.field input:focus,.field textarea:focus{border-color:var(--hotpink)}
+.field select option{background:#140f1d}
+.field textarea{min-height:92px;resize:vertical}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.opt span{display:inline-block;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);font-size:13.5px;font-weight:600}
+.opt input:checked+span{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.opt input:focus-visible+span{outline:2px solid var(--hotpink);outline-offset:2px}
+.count{float:right;font-size:12px;color:var(--muted);letter-spacing:0;text-transform:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+.btn{font-family:'Bungee';font-size:13px;letter-spacing:1px;padding:14px 22px;border-radius:999px;border:0;cursor:pointer}
+.btn.pink{background:linear-gradient(135deg,var(--pink),#ff7a3d);color:#fff}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.35)}
+.note{font-size:12px;color:#8b76b5;margin-top:12px;line-height:1.5}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);z-index:300;opacity:0;transition:all .3s;
+  padding:13px 20px;border-radius:999px;background:var(--cream);color:var(--ink);font-weight:600;font-size:14px;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+footer{padding:40px clamp(16px,4vw,48px);border-top:1px solid rgba(255,255,255,.08);color:#8b76b5;font-size:12.5px;line-height:1.7}
+footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media (max-width:760px){
+  .maptools{position:static;padding:12px 12px 4px;align-items:center}
+  .mapcard.placing .hint{bottom:12px}
+  .chip{padding:8px 11px;font-size:12px}
+  .logbtn{padding:11px 16px;font-size:12px}
+  .legend{display:none}
+  .region-label{font-size:20px}
+  .row2{grid-template-columns:1fr}
+  .hint{font-size:12.5px;bottom:10px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><img src="assets/pfp.jpg" alt=""><span>SKUNK APE</span></a>
+  <div class="hright">
+    <a class="back" href="index.html">← Back to site</a>
+    <a class="pill" href="index.html#buy">BUY $SKUNK</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <div>
+      <div class="label">Community Case File</div>
+      <h1>LEONIDA <em>SIGHTINGS MAP</em></h1>
+      <p>Twenty years of hunting, and the trail ends in the swamp. Seen him in the Grassrivers? Smelled him on Ocean Beach? Drop a pin and log it. Every report puts the hunt one step closer.</p>
+    </div>
+    <div class="stats">
+      <div class="stat hot"><b id="statTotal">0</b><span>Sightings</span></div>
+      <div class="stat"><b id="statCase">0</b><span>Case files</span></div>
+      <div class="stat"><b id="statHot">–</b><span>Hottest zone</span></div>
+    </div>
+  </section>
+
+  <section class="board">
+    <div class="mapcard" id="mapcard">
+      <div class="maptools">
+        <div class="chips" role="group" aria-label="Filter sightings">
+          <button class="chip" data-f="all" aria-pressed="true">All</button>
+          <button class="chip" data-f="case" aria-pressed="false">Case files</button>
+          <button class="chip" data-f="mine" aria-pressed="false">Community</button>
+        </div>
+        <button class="logbtn" id="logBtn">+ LOG A SIGHTING</button>
+      </div>
+
+      <svg id="map" viewBox="20 64 790 660" role="img" aria-label="Map of Leonida with Skunk Ape sightings">
+        <defs>
+          <radialGradient id="sea" cx="62%" cy="55%" r="75%">
+            <stop offset="0" stop-color="#2a1550"/><stop offset=".6" stop-color="#170c30"/><stop offset="1" stop-color="#0d0820"/>
+          </radialGradient>
+          <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2b3d3a"/><stop offset="1" stop-color="#1f3330"/>
+          </linearGradient>
+          <linearGradient id="caseGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#c44dff"/><stop offset=".55" stop-color="#ff4fa3"/><stop offset="1" stop-color="#ff9a3d"/>
+          </linearGradient>
+          <radialGradient id="heat"><stop offset="0" stop-color="#ff4fa3" stop-opacity=".55"/><stop offset="1" stop-color="#ff4fa3" stop-opacity="0"/></radialGradient>
+          <pattern id="marsh" width="22" height="16" patternUnits="userSpaceOnUse">
+            <path d="M3 13 l3-7 M8 13 l1-9 M12 13 l-2-6" stroke="#5fae86" stroke-opacity=".45" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+          </pattern>
+          <pattern id="pines" width="26" height="24" patternUnits="userSpaceOnUse">
+            <path d="M8 18 l5-11 l5 11 z" fill="#3f6b55" fill-opacity=".55"/>
+          </pattern>
+          <pattern id="city" width="12" height="12" patternUnits="userSpaceOnUse">
+            <rect x="1" y="1" width="7" height="7" rx="1" fill="#ff6ec0" fill-opacity=".35"/>
+          </pattern>
+          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>
+          <clipPath id="landClip"><path id="landPathC" d=""/></clipPath>
+        </defs>
+
+        <rect width="1000" height="720" fill="url(#sea)"/>
+        <!-- wave lines -->
+        <g stroke="#7b4dff" stroke-opacity=".14" stroke-width="1.5" fill="none">
+          <path d="M760 120 q20 -8 40 0 t40 0 t40 0"/><path d="M790 250 q20 -8 40 0 t40 0 t40 0"/>
+          <path d="M740 420 q20 -8 40 0 t40 0 t40 0"/><path d="M780 600 q20 -8 40 0 t40 0 t40 0"/>
+          <path d="M120 360 q20 -8 40 0 t40 0 t40 0"/><path d="M200 520 q20 -8 40 0 t40 0 t40 0"/>
+          <path d="M90 620 q20 -8 40 0 t40 0 t40 0"/>
+        </g>
+
+        <!-- land: glow, body, textures -->
+        <path id="landGlow" d="" fill="none" stroke="#ff4fa3" stroke-opacity=".35" stroke-width="10" filter="url(#glow)"/>
+        <path id="landPath" d="" fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".55" stroke-width="2"/>
+        <g clip-path="url(#landClip)">
+          <path d="M150 60 L470 60 L470 230 L150 230 Z" fill="url(#pines)"/>
+          <path d="M470 470 C520 455 600 470 640 500 L650 640 L470 640 Z" fill="url(#marsh)"/>
+          <path d="M600 470 C625 470 650 490 662 520 L655 560 C640 560 615 545 600 530 Z" fill="url(#city)"/>
+        </g>
+        <!-- inland water -->
+        <ellipse cx="555" cy="395" rx="34" ry="26" fill="#2a1550" stroke="#7fe8ff" stroke-opacity=".35" stroke-width="1.5"/>
+        <path d="M555 421 C548 450 540 470 530 500" stroke="#7fe8ff" stroke-opacity=".3" stroke-width="2" fill="none"/>
+        <path d="M300 160 C330 200 350 240 365 290" stroke="#7fe8ff" stroke-opacity=".22" stroke-width="2" fill="none"/>
+        <!-- keys -->
+        <g fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".5" stroke-width="1.4">
+          <ellipse cx="575" cy="664" rx="16" ry="6" transform="rotate(-20 575 664)"/>
+          <ellipse cx="540" cy="680" rx="18" ry="6" transform="rotate(-12 540 680)"/>
+          <ellipse cx="500" cy="690" rx="16" ry="5.5" transform="rotate(-6 500 690)"/>
+          <ellipse cx="462" cy="695" rx="13" ry="5"/>
+          <ellipse cx="428" cy="696" rx="10" ry="4.5"/>
+        </g>
+        <!-- roads -->
+        <g stroke="#ffd98a" stroke-opacity=".28" stroke-width="2" fill="none" stroke-dasharray="6 7">
+          <path d="M120 150 C250 135 380 150 470 175 C520 200 560 250 590 320 C610 380 625 440 640 515"/>
+          <path d="M470 175 C455 240 470 300 500 340 C520 370 535 380 545 395"/>
+          <path d="M520 560 C560 600 590 640 575 664 C560 680 520 690 430 696"/>
+          <path d="M455 420 C500 430 560 470 640 515"/>
+        </g>
+
+        <g id="heatLayer"></g>
+        <!-- labels -->
+        <g id="labels">
+          <text class="region-label" x="70" y="132">PORT GELLHORN</text>
+          <text class="region-label" x="250" y="118">MOUNT KALAGA</text>
+          <text class="region-label sm" x="262" y="136">NATIONAL PARK</text>
+          <text class="region-label" x="420" y="300">AMBROSIA</text>
+          <text class="region-label" x="476" y="452">GRASSRIVERS</text>
+          <text class="region-label" x="652" y="540">VICE CITY</text>
+          <text class="region-label sm" x="688" y="580">OCEAN BEACH</text>
+          <text class="region-label" x="395" y="660">LEONIDA KEYS</text>
+        </g>
+        <g id="pins"></g>
+        <g id="ghost" class="ghost-pin"></g>
+      </svg>
+
+      <div class="legend"><span><i class="lc"></i>Case file</span><span><i class="lm"></i>Community sighting</span></div>
+      <div class="hint" id="hint">Tap the map where you saw him</div>
+    </div>
+
+    <aside class="side">
+      <div class="panel detail" id="detail" aria-live="polite"></div>
+      <div class="panel">
+        <div class="label">Heat Check</div>
+        <h2>HOTTEST ZONES</h2>
+        <div class="zones" id="zones"></div>
+      </div>
+      <div class="panel">
+        <div class="label">Live Log</div>
+        <h2>LATEST SIGHTINGS</h2>
+        <div class="feed" id="feed"></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<footer><div class="in">
+  <p>Sightings are fan-submitted lore for fun. Keep it in character and keep it clean: no real names, addresses or personal info.</p>
+  <p>Fan-made parody. Not affiliated with or endorsed by Rockstar Games or Take-Two Interactive.</p>
+</div></footer>
+
+<!-- log form -->
+<div class="modal" id="logModal" role="dialog" aria-modal="true" aria-labelledby="logTitle">
+  <form class="sheet" id="logForm" autocomplete="off">
+    <div class="label">New Report</div>
+    <h2 id="logTitle">LOG A SIGHTING</h2>
+    <p class="sub" id="logWhere">Pinned near —</p>
+    <div class="field">
+      <label for="fArea">Area</label>
+      <select id="fArea"></select>
+    </div>
+    <div class="field">
+      <span class="lbl">What happened?</span>
+      <div class="opts" id="fType"></div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="fTime">Time of day</label>
+        <select id="fTime">
+          <option>3 AM (obviously)</option><option>Dawn fog</option><option>Broad daylight</option><option>Sunset</option><option>Late night</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fHandle">Your handle <span class="count">optional</span></label>
+        <input id="fHandle" maxlength="20" placeholder="anon hunter">
+      </div>
+    </div>
+    <div class="field">
+      <label for="fNote">What did you see? <span class="count" id="noteCount">0/180</span></label>
+      <textarea id="fNote" maxlength="180" required placeholder="Airboat tour, mile 9. Something huge crossed the channel. Smell hit two seconds later."></textarea>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn ghost" id="cancelLog">CANCEL</button>
+      <button type="submit" class="btn pink">SUBMIT REPORT</button>
+    </div>
+    <p class="note">Keep it in character. No real names, locations or personal info.</p>
+  </form>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+  /* ---------- map geometry ---------- */
+  var LAND='M40 128 C120 98 240 92 330 104 C400 112 450 104 520 100 C565 138 600 220 625 300 C650 380 668 450 662 520 C656 575 630 615 595 640 C560 652 530 626 515 585 C495 530 470 470 455 420 C440 370 425 300 400 250 C380 210 340 186 300 180 C240 176 170 190 110 186 C80 183 55 172 40 152 Z';
+  ['landPath','landGlow','landPathC'].forEach(function(id){document.getElementById(id).setAttribute('d',LAND)});
+
+  var AREAS=[
+    {id:'grassrivers',name:'Grassrivers',x:545,y:560},
+    {id:'vicecity',name:'Vice City',x:640,y:515},
+    {id:'oceanbeach',name:'Ocean Beach',x:668,y:568},
+    {id:'keys',name:'Leonida Keys',x:505,y:688},
+    {id:'ambrosia',name:'Ambrosia',x:470,y:320},
+    {id:'kalaga',name:'Mount Kalaga',x:300,y:150},
+    {id:'gellhorn',name:'Port Gellhorn',x:120,y:160},
+    {id:'lake',name:'The Lake',x:555,y:395}
+  ];
+  function nearestArea(x,y){var b=AREAS[0],bd=1e9;AREAS.forEach(function(a){var d=(a.x-x)*(a.x-x)+(a.y-y)*(a.y-y);if(d<bd){bd=d;b=a}});return b}
+  function areaName(id){for(var i=0;i<AREAS.length;i++)if(AREAS[i].id===id)return AREAS[i].name;return id}
+
+  var TYPES=['Glimpse','Footprints','The smell','Photo / video','Howl','Close encounter'];
+
+  /* ---------- official case files (the site's own lore) ---------- */
+  var CASE=[
+    {id:'c-a',kind:'case',x:520,y:520,area:'grassrivers',type:'Photo / video',time:'Sunset',title:'Exhibit A: The Glades Belong to Him',text:"The last photo the research team filed before going quiet. He wasn't hiding. He was posing.",img:'assets/keyart.jpg?v=skunk'},
+    {id:'c-b',kind:'case',x:572,y:600,area:'grassrivers',type:'Photo / video',time:'3 AM (obviously)',title:'Exhibit B: Trail Cam, 3:14 AM',text:'Wildlife camera deep in the cypress. The chain reflects infrared. The smell does not photograph.',img:'assets/ev5.jpg'},
+    {id:'c-c',kind:'case',x:492,y:338,area:'ambrosia',type:'Photo / video',time:'Late night',title:'Exhibit C: Gas Station CCTV',text:'Bought one energy drink. Left exact change. Cashier has not returned to work.',img:'assets/ev7.jpg?v=skunk'},
+    {id:'c-d',kind:'case',x:676,y:560,area:'oceanbeach',type:'Close encounter',time:'Late night',title:'Exhibit D: Ocean Drive, 1:47 AM',text:'Walked straight past the club line. Nobody stopped him. Nobody ever stops him.',img:'assets/ev6.jpg?v=skunk'},
+    {id:'c-e',kind:'case',x:618,y:486,area:'grassrivers',type:'Photo / video',time:'Broad daylight',title:'Exhibit E: News Chopper 7',text:"Clocked crossing the levee at a dead sprint. The canal didn't slow him down either.",img:'assets/ev4.jpg'},
+    {id:'c-f',kind:'case',x:338,y:168,area:'kalaga',type:'Close encounter',time:'Broad daylight',title:'Exhibit F: The Creek',text:"Twenty years of searching, and here he is in broad daylight. Witness: 'he just stood there… then the smell hit.'",img:'assets/ev1.jpg?v=skunk'},
+    {id:'c-g',kind:'case',x:530,y:612,area:'grassrivers',type:'Glimpse',time:'Dawn fog',title:'Exhibit G: The Gator Pass',text:"Even the apex predators pull over when he's running the channel.",img:'assets/ev2.jpg'},
+    {id:'c-h',kind:'case',x:612,y:590,area:'grassrivers',type:'Photo / video',time:'Broad daylight',title:'Exhibit H: Full Send',text:'Last seen doing 60 through the glades. Chain confirmed real gold. $SKUNK confirmed real ticker.',img:'assets/ev3.jpg'}
+  ];
+
+  /* ---------- shared storage: Supabase (publishable key is public by design; RLS limits it to read + add) ---------- */
+  var SB='https://tqccjgxsqdnibhbgdurw.supabase.co/rest/v1/sightings';
+  var SBKEY='sb_publishable_wXv64gz_3QUGI0WKM61QFg_m-r1r3fn';
+  var COLS='id,created_at,x,y,area,type,time_of_day,handle,note';
+  function fromRow(r){return{id:'s-'+r.id,kind:'mine',x:r.x,y:r.y,area:r.area,type:r.type,time:r.time_of_day,handle:r.handle||'',text:r.note,t:Date.parse(r.created_at)}}
+  var STORE={
+    list:function(){
+      return fetch(SB+'?select='+COLS+'&order=created_at.desc&limit=300',{headers:{apikey:SBKEY}})
+        .then(function(r){if(!r.ok)throw new Error('load '+r.status);return r.json()})
+        .then(function(rows){return rows.map(fromRow)});
+    },
+    add:function(s){
+      return fetch(SB,{method:'POST',headers:{apikey:SBKEY,'Content-Type':'application/json',Prefer:'return=minimal'},
+        body:JSON.stringify({x:s.x,y:s.y,area:s.area,type:s.type,time_of_day:s.time,handle:s.handle||null,note:s.text})})
+        .then(function(r){if(r.ok)return s;return r.json().catch(function(){return{}}).then(function(j){
+          var m=(j&&j.message)||'';throw new Error(/Too many/.test(m)?'The swamp is busy. Try again in a minute.':"Couldn't log that right now. Try again.")})});
+    }
+  };
+
+  /* ---------- state ---------- */
+  var mine=[], filter='all', selected=null, placing=false, draft=null;
+  var svg=document.getElementById('map'), pinsG=document.getElementById('pins'), heatG=document.getElementById('heatLayer'), ghostG=document.getElementById('ghost');
+  var NS='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+  function all(){return CASE.concat(mine)}
+  function visible(){return all().filter(function(s){return filter==='all'||s.kind===filter})}
+  function ago(t){if(!t)return'';var m=Math.round((Date.now()-t)/60000);if(m<1)return'just now';if(m<60)return m+'m ago';var h=Math.round(m/60);if(h<24)return h+'h ago';return Math.round(h/24)+'d ago'}
+
+  /* ---------- render ---------- */
+  function renderPins(newId){
+    pinsG.textContent='';
+    visible().forEach(function(s){
+      var g=el('g',{'class':'pin'+(selected===s.id?' sel':'')+(newId===s.id?' new':''),transform:'translate('+s.x+' '+s.y+')',tabindex:'0',role:'button','aria-label':(s.kind==='case'?'Case file: ':'Sighting: ')+(s.title||s.type)+', '+areaName(s.area)});
+      if(s.kind==='case'){
+        g.appendChild(el('circle',{'class':'ring',r:'11',fill:'none',stroke:'#ff4fa3','stroke-width':'2'}));
+        g.appendChild(el('circle',{'class':'core',r:'10',fill:'url(#caseGrad)',stroke:'#140c24','stroke-width':'2.5'}));
+        var p=el('path',{d:'M-3.5 3 c-2 0 -3 -2 -2.4 -4 c.6 -2 2.4 -3 4 -2.4 c1.8 .6 2.6 2.6 1.8 4.4 c-.6 1.4 -1.8 2 -3.4 2z M-4.5 -4.6 a1.2 1.2 0 1 0 .1 0z M-1.4 -6 a1.2 1.2 0 1 0 .1 0z M1.8 -5.4 a1.1 1.1 0 1 0 .1 0z M4 -3.2 a1 1 0 1 0 .1 0z',fill:'#fff'});
+        g.appendChild(p);
+      }else{
+        g.appendChild(el('circle',{'class':'ring',r:'7',fill:'none',stroke:'#7fe8ff','stroke-width':'2'}));
+        g.appendChild(el('circle',{'class':'core',r:'7',fill:'#7fe8ff',stroke:'#140c24','stroke-width':'2.5'}));
+      }
+      g.insertBefore(el('circle',{r:'22',fill:'transparent'}),g.firstChild);
+      g.addEventListener('click',function(e){e.stopPropagation();if(!placing)select(s.id,true)});
+      g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();select(s.id,true)}});
+      pinsG.appendChild(g);
+    });
+  }
+  function counts(){var c={};all().forEach(function(s){c[s.area]=(c[s.area]||0)+1});return c}
+  function renderHeat(){
+    heatG.textContent='';var c=counts();
+    AREAS.forEach(function(a){var n=c[a.id]||0;if(!n)return;heatG.appendChild(el('circle',{cx:a.x,cy:a.y,r:String(30+n*12),fill:'url(#heat)'}))});
+  }
+  function renderZones(){
+    var c=counts(),rows=AREAS.map(function(a){return{a:a,n:c[a.id]||0}}).filter(function(r){return r.n>0}).sort(function(x,y){return y.n-x.n});
+    var max=rows.length?rows[0].n:1,z=document.getElementById('zones');z.textContent='';
+    rows.slice(0,6).forEach(function(r){
+      var b=document.createElement('button');b.className='zone';b.type='button';
+      var t=document.createElement('b');t.textContent=r.a.name;var n=document.createElement('span');n.textContent=r.n;
+      var bar=document.createElement('div');bar.className='bar';var i=document.createElement('i');i.style.width=Math.round(r.n/max*100)+'%';bar.appendChild(i);
+      b.appendChild(t);b.appendChild(n);b.appendChild(bar);
+      b.addEventListener('click',function(){var first=all().filter(function(s){return s.area===r.a.id}).pop();if(first){if(filter!=='all'&&first.kind!==filter)setFilter('all');select(first.id,true)}});
+      z.appendChild(b);
+    });
+    document.getElementById('statTotal').textContent=all().length;
+    document.getElementById('statCase').textContent=CASE.length;
+    document.getElementById('statHot').textContent=rows.length?rows[0].a.name:'–';
+  }
+  function renderFeed(){
+    var f=document.getElementById('feed');f.textContent='';
+    var list=visible().slice().sort(function(a,b){return (b.t||0)-(a.t||0)});
+    if(!list.length){var p=document.createElement('p');p.className='empty';p.textContent='No community sightings yet. Be the first to log one.';f.appendChild(p);return}
+    list.forEach(function(s){
+      var b=document.createElement('button');b.type='button';b.className='item'+(selected===s.id?' sel':'');
+      var d=document.createElement('span');d.className='dot '+s.kind;
+      var w=document.createElement('span');var t=document.createElement('b');t.textContent=s.kind==='case'?s.title:(s.type+' · '+areaName(s.area));
+      var sm=document.createElement('small');sm.textContent=s.kind==='case'?('Case file · '+areaName(s.area)):((s.handle||'anon hunter')+' · '+ago(s.t));
+      w.appendChild(t);w.appendChild(sm);b.appendChild(d);b.appendChild(w);
+      b.addEventListener('click',function(){select(s.id,true)});
+      f.appendChild(b);
+    });
+  }
+  function renderDetail(){
+    var box=document.getElementById('detail');box.textContent='';
+    var s=all().filter(function(x){return x.id===selected})[0];
+    if(!s){box.classList.remove('show');return}
+    box.classList.add('show');
+    var x=document.createElement('button');x.className='xbtn';x.type='button';x.setAttribute('aria-label','Close');x.textContent='×';x.onclick=function(){select(null)};box.appendChild(x);
+    var lab=document.createElement('div');lab.className='label';lab.textContent=s.kind==='case'?'Official Case File':'Community Sighting';box.appendChild(lab);
+    if(s.img){var ph=document.createElement('div');ph.className='ph';ph.style.marginTop='12px';var im=document.createElement('img');im.src=s.img;im.alt='';ph.appendChild(im);box.appendChild(ph)}
+    var h=document.createElement('h3');h.style.marginTop=s.img?'0':'10px';h.textContent=s.kind==='case'?s.title:s.type;box.appendChild(h);
+    var m=document.createElement('div');m.className='meta';
+    [[areaName(s.area),'tag area'],[s.time,'tag'],[s.kind==='case'?'Case file':s.type,s.kind==='case'?'tag case':'tag']].forEach(function(t){if(!t[0])return;var g=document.createElement('span');g.className=t[1];g.textContent=t[0];m.appendChild(g)});
+    box.appendChild(m);
+    var p=document.createElement('p');p.textContent=s.text;box.appendChild(p);
+    if(s.kind!=='case'){var by=document.createElement('div');by.className='by';by.textContent='Logged by '+(s.handle||'anon hunter')+' · '+ago(s.t);box.appendChild(by)}
+  }
+  function renderAll(newId){renderHeat();renderPins(newId);renderZones();renderFeed();renderDetail()}
+  function select(id,scroll){selected=id;renderAll();if(id&&scroll&&window.innerWidth<=1000){document.getElementById('detail').scrollIntoView({behavior:'smooth',block:'nearest'})}}
+  function setFilter(f){filter=f;document.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(c.dataset.f===f))});renderAll()}
+  document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){setFilter(c.dataset.f)})});
+
+  /* ---------- logging flow ---------- */
+  var card=document.getElementById('mapcard'),logBtn=document.getElementById('logBtn'),modal=document.getElementById('logModal');
+  function setPlacing(on){placing=on;card.classList.toggle('placing',on);svg.classList.toggle('placing',on);logBtn.textContent=on?'CANCEL':'+ LOG A SIGHTING';logBtn.classList.toggle('cancel',on);if(!on)ghostG.textContent=''}
+  logBtn.addEventListener('click',function(){setPlacing(!placing)});
+  function svgPoint(e){var pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse())}
+  function onLand(x,y){var p=document.getElementById('landPath');try{var pt=svg.createSVGPoint();pt.x=x;pt.y=y;if(p.isPointInFill(pt))return true}catch(e){}return y>650&&x>415&&x<595}
+  svg.addEventListener('click',function(e){
+    if(!placing)return select(null);
+    var p=svgPoint(e),x=Math.round(p.x),y=Math.round(p.y);
+    if(!onLand(x,y)){toast("That's open water. He swims, but pin him on land.");return}
+    draft={x:x,y:y};ghostG.textContent='';
+    ghostG.appendChild(el('circle',{cx:x,cy:y,r:'9',fill:'#7fe8ff',stroke:'#fff','stroke-width':'2.5'}));
+    openForm(nearestArea(x,y));
+  });
+  var areaSel=document.getElementById('fArea');AREAS.forEach(function(a){var o=document.createElement('option');o.value=a.id;o.textContent=a.name;areaSel.appendChild(o)});
+  var typeBox=document.getElementById('fType');TYPES.forEach(function(t,i){var l=document.createElement('label');l.className='opt';var inp=document.createElement('input');inp.type='radio';inp.name='ftype';inp.value=t;if(i===0)inp.checked=true;var sp=document.createElement('span');sp.textContent=t;l.appendChild(inp);l.appendChild(sp);typeBox.appendChild(l)});
+  var note=document.getElementById('fNote');note.addEventListener('input',function(){document.getElementById('noteCount').textContent=note.value.length+'/180'});
+  function openForm(area){areaSel.value=area.id;document.getElementById('logWhere').textContent='Pinned near '+area.name+'. Adjust the area if needed.';modal.classList.add('open');setTimeout(function(){note.focus()},50)}
+  function closeForm(){modal.classList.remove('open');ghostG.textContent='';draft=null}
+  document.getElementById('cancelLog').addEventListener('click',function(){closeForm()});
+  modal.addEventListener('click',function(e){if(e.target===modal)closeForm()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(modal.classList.contains('open'))closeForm();else if(placing)setPlacing(false)}});
+  document.getElementById('logForm').addEventListener('submit',function(e){
+    e.preventDefault();if(!draft)return;
+    var txt=note.value.trim();if(!txt){note.focus();return}
+    var s={id:'m-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),kind:'mine',x:draft.x,y:draft.y,area:areaSel.value,
+      type:(document.querySelector('input[name=ftype]:checked')||{}).value||'Glimpse',time:document.getElementById('fTime').value,
+      handle:document.getElementById('fHandle').value.trim().slice(0,20),text:txt.slice(0,180),t:Date.now()};
+    var sub=document.querySelector('#logForm button[type=submit]');sub.disabled=true;sub.textContent='LOGGING…';
+    STORE.add(s).then(function(){
+      mine.push(s);closeForm();setPlacing(false);note.value='';document.getElementById('noteCount').textContent='0/180';
+      if(filter==='case')setFilter('all');selected=s.id;renderAll(s.id);toast('Sighting logged. The hunt thanks you.');
+    }).catch(function(err){toast(err.message)}).then(function(){sub.disabled=false;sub.textContent='SUBMIT REPORT'});
+  });
+  var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},2400)}
+
+  var gl=document.querySelector('#labels text');
+  function fitView(){var m=window.innerWidth<=760;svg.setAttribute('viewBox',m?'240 84 560 650':'20 64 790 660');gl.style.display=m?'none':''}
+  fitView();window.addEventListener('resize',fitView);
+  renderAll();
+  /* load everyone's sightings, then refresh every 30s */
+  var loadedOnce=false;
+  function load(){
+    STORE.list().then(function(rows){
+      var local=mine.filter(function(m){return m.id.indexOf('m-')===0});
+      mine=rows.concat(local.filter(function(l){return !rows.some(function(r){return r.x===l.x&&r.y===l.y&&r.text===l.text})}));
+      if(!placing)renderAll();loadedOnce=true;
+    }).catch(function(){if(!loadedOnce)toast("Couldn't load community sightings. Case files still work.")});
+  }
+  load();setInterval(function(){if(!document.hidden)load()},30000);
+})();
+</script>
+</body>
+</html>
