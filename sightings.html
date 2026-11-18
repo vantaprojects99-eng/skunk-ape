@@ -245,6 +245,9 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
         </g>
         <!-- inland water -->
         <ellipse cx="555" cy="395" rx="34" ry="26" fill="#2a1550" stroke="#7fe8ff" stroke-opacity=".35" stroke-width="1.5"/>
+        <path id="beachIsland" d="M674 452 C681 478 686 520 685 566 C684 578 678 582 675 572 C677 532 675 492 668 456 Z" fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".55" stroke-width="1.6"/>
+        <rect x="664" y="500" width="7" height="12" rx="2" fill="url(#land)" stroke="#ff9ad0" stroke-opacity=".45" stroke-width="1.2"/>
+        <g stroke="#ffd98a" stroke-opacity=".35" stroke-width="1.6"><path d="M660 506 L676 506"/><path d="M658 482 L672 480"/></g>
         <path d="M555 421 C548 450 540 470 530 500" stroke="#7fe8ff" stroke-opacity=".3" stroke-width="2" fill="none"/>
         <path d="M300 160 C330 200 350 240 365 290" stroke="#7fe8ff" stroke-opacity=".22" stroke-width="2" fill="none"/>
         <!-- keys -->
@@ -269,10 +272,11 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
           <text class="region-label" x="70" y="132">PORT GELLHORN</text>
           <text class="region-label" x="250" y="118">MOUNT KALAGA</text>
           <text class="region-label sm" x="262" y="136">NATIONAL PARK</text>
-          <text class="region-label" x="420" y="300">AMBROSIA</text>
-          <text class="region-label" x="476" y="452">GRASSRIVERS</text>
-          <text class="region-label" x="652" y="540">VICE CITY</text>
-          <text class="region-label sm" x="688" y="580">OCEAN BEACH</text>
+          <text class="region-label" x="462" y="446">AMBROSIA</text>
+          <text class="region-label sm" x="512" y="362">LAKE LEONIDA</text>
+          <text class="region-label" x="510" y="592">GRASSRIVERS</text>
+          <text class="region-label" x="696" y="500">VICE CITY</text>
+          <text class="region-label sm" x="696" y="520">OCEAN BEACH</text>
           <text class="region-label" x="395" y="660">LEONIDA KEYS</text>
         </g>
         <g id="pins"></g>
@@ -353,12 +357,12 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   var AREAS=[
     {id:'grassrivers',name:'Grassrivers',x:545,y:560},
     {id:'vicecity',name:'Vice City',x:640,y:515},
-    {id:'oceanbeach',name:'Ocean Beach',x:668,y:568},
+    {id:'oceanbeach',name:'Ocean Beach',x:680,y:515},
     {id:'keys',name:'Leonida Keys',x:505,y:688},
-    {id:'ambrosia',name:'Ambrosia',x:470,y:320},
+    {id:'ambrosia',name:'Ambrosia',x:500,y:432},
     {id:'kalaga',name:'Mount Kalaga',x:300,y:150},
     {id:'gellhorn',name:'Port Gellhorn',x:120,y:160},
-    {id:'lake',name:'The Lake',x:555,y:395}
+    {id:'lake',name:'Lake Leonida',x:555,y:395}
   ];
   function nearestArea(x,y){var b=AREAS[0],bd=1e9;AREAS.forEach(function(a){var d=(a.x-x)*(a.x-x)+(a.y-y)*(a.y-y);if(d<bd){bd=d;b=a}});return b}
   function areaName(id){for(var i=0;i<AREAS.length;i++)if(AREAS[i].id===id)return AREAS[i].name;return id}
@@ -475,7 +479,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   function setPlacing(on){placing=on;card.classList.toggle('placing',on);svg.classList.toggle('placing',on);logBtn.textContent=on?'CANCEL':'+ LOG A SIGHTING';logBtn.classList.toggle('cancel',on);if(!on)ghostG.textContent=''}
   logBtn.addEventListener('click',function(){setPlacing(!placing)});
   function svgPoint(e){var pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse())}
-  function onLand(x,y){var p=document.getElementById('landPath');try{var pt=svg.createSVGPoint();pt.x=x;pt.y=y;if(p.isPointInFill(pt))return true}catch(e){}return y>650&&x>415&&x<595}
+  function onLand(x,y){var p=document.getElementById('landPath'),bi=document.getElementById('beachIsland');try{var pt=svg.createSVGPoint();pt.x=x;pt.y=y;if(p.isPointInFill(pt)||bi.isPointInFill(pt))return true}catch(e){}return y>650&&x>415&&x<595}
   svg.addEventListener('click',function(e){
     if(!placing)return select(null);
     var p=svgPoint(e),x=Math.round(p.x),y=Math.round(p.y);
@@ -507,7 +511,7 @@ footer .in{max-width:1440px;margin:0 auto;display:flex;justify-content:space-bet
   var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},2400)}
 
   var gl=document.querySelector('#labels text');
-  function fitView(){var m=window.innerWidth<=760;svg.setAttribute('viewBox',m?'240 84 560 650':'20 64 790 660');gl.style.display=m?'none':''}
+  function fitView(){var m=window.innerWidth<=760;svg.setAttribute('viewBox',m?'250 84 600 650':'20 64 790 660');gl.style.display=m?'none':''}
   fitView();window.addEventListener('resize',fitView);
   renderAll();
   /* load everyone's sightings, then refresh every 30s */
