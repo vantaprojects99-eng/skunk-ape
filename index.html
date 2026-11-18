@@ -161,6 +161,9 @@ body.menu-open #menu{opacity:1;pointer-events:auto}
 .count:before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(900px 340px at 50% 70%,rgba(255,62,165,.28),transparent 70%)}
 .count>*:not(img){position:relative;z-index:2}
 .count h2{font-family:'Bungee';font-size:clamp(28px,5vw,56px);margin:10px 0 30px}
+.open-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.open-cta[hidden]{display:none}
+.count.open h2{font-size:clamp(36px,7vw,84px);background:var(--sunset);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:26px}
 .clock{display:flex;gap:clamp(8px,2vw,18px);justify-content:center}
 .cell{min-width:clamp(70px,14vw,120px)}
 .cell b{display:block;font-family:'Bungee';font-size:clamp(36px,8vw,92px);line-height:1}
@@ -328,7 +331,7 @@ footer .fine{color:#8b76b5;font-size:12.5px;line-height:1.7;max-width:520px}
       </svg>
     </div>
     <div class="hero-info">
-      <div class="date">The hunt opens <em>November 19, 2026</em></div>
+      <div class="date" id="heroDate">The hunt opens <em>November 19, 2026</em></div>
       <div class="sub">The Bigfoot they never found · <b>$SKUNK</b> on Solana</div>
       <div class="cta">
         <a class="btn pink" href="#buy">BUY $SKUNK</a>
@@ -342,14 +345,18 @@ footer .fine{color:#8b76b5;font-size:12.5px;line-height:1.7;max-width:520px}
 <!-- COUNTDOWN -->
 <section class="count" id="countdown">
   <div class="label">The Catalyst</div>
-  <h2>THE HUNT OPENS IN</h2>
-  <div class="clock">
+  <h2 id="countHead">THE HUNT OPENS IN</h2>
+  <div class="open-cta" id="openCta" hidden>
+    <a class="btn pink" href="#buy">BUY $SKUNK</a>
+    <a class="btn ghost" href="sightings.html">SIGHTINGS MAP</a>
+  </div>
+  <div class="clock" id="clock">
     <div class="cell"><b id="dd">–</b><span>days</span></div>
     <div class="cell"><b id="hh">–</b><span>hours</span></div>
     <div class="cell"><b id="mm">–</b><span>mins</span></div>
     <div class="cell"><b id="ss">–</b><span>secs</span></div>
   </div>
-  <p class="foot">Twenty years of fakes and decoys. Almost time for the real one.</p>
+  <p class="foot" id="countFoot">Twenty years of fakes and decoys. Almost time for the real one.</p>
 </section>
 
 <section class="links-row">
@@ -584,10 +591,21 @@ footer .fine{color:#8b76b5;font-size:12.5px;line-height:1.7;max-width:520px}
   window.addEventListener('load',function(){window.scrollTo(0,0);frame()});
   window.addEventListener('pageshow',function(e){if(e.persisted)window.scrollTo(0,0)});
 
-  /* countdown to Nov 19 2026 */
-  var T=new Date('2026-11-19T00:00:00-05:00').getTime();
+  /* countdown to midnight Nov 19 2026 in the visitor's own time zone (GTA 6 unlocks at local midnight) */
+  var T=new Date(2026,10,19,0,0,0).getTime(),isOpen=false;
+  function openHunt(){
+    isOpen=true;
+    $('#countdown').classList.add('open');
+    $('#countHead').textContent='THE HUNT IS OPEN';
+    $('#clock').hidden=true;$('#clock').style.display='none';
+    $('#openCta').hidden=false;
+    $('#countFoot').textContent='GTA 6 is live where you are. Leonida is his. Go find him, and log what you see.';
+    $('#heroDate').innerHTML='The hunt is <em>open</em>';
+  }
   function tick(){
-    var d=Math.max(0,T-Date.now());
+    if(isOpen)return;
+    var d=T-Date.now();
+    if(d<=0){openHunt();return}
     $('#dd').textContent=Math.floor(d/864e5);
     $('#hh').textContent=Math.floor(d%864e5/36e5);
     $('#mm').textContent=Math.floor(d%36e5/6e4);
